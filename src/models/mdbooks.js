@@ -35,7 +35,7 @@ module.exports = {
         }
 
         // this is query for combine search, sort|typesort, page|limit, and availability
-        let query = `SELECT * FROM books `
+        let query = `SELECT books.id_book, books.title, books.description, books.image, books.date_released, genre.name as genre, books.id_status FROM books INNER JOIN genre ON books.id_genre = genre.id_genre `
 
         if (searchingIsDefined || availableIsDefined) {
           query += `WHERE title LIKE '%${searching}%' `
@@ -62,6 +62,7 @@ module.exports = {
               const msg = {
                 msg: 'Data not found'
               }
+              console.log(err)
               resolve(msg)
             }
           } else {

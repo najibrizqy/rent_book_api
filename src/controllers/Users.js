@@ -9,8 +9,9 @@ const joi = require('joi')
 // this is function to validate form
 validateForm = (data) => {
   const schema = joi.object().keys({
-    email: joi.string().email({ minDomainSegments: 2 }),
-    password: joi.string().min(6).required()
+    email: joi.string().email({ minDomainAtoms: 2 }),
+    password: joi.string().min(6).required(),
+    created_at: joi.date()
   })
   const result = joi.validate(data, schema)
   if (result.error == null) {
@@ -39,11 +40,12 @@ module.exports = {
     const hashPassword = encrypt(req.body.password)
     const data = {
       email: req.body.email,
-      password: hashPassword
+      password: hashPassword,
+      created_at: new Date()
     }
 
     if (!validateForm(data)) {
-      res.json({ msg: 'email or password not valid' })
+      return res.json({ msg: 'email or password not valid' })
     }
 
     modelUsers.register(data)
@@ -58,7 +60,7 @@ module.exports = {
     }
 
     if (!validateForm(data)) {
-      res.json({ msg: 'email or password not valid' })
+      return res.json({ msg: 'email or password not valid' })
     }
 
     modelUsers.login(data)
@@ -86,20 +88,6 @@ module.exports = {
       })
       .catch(err => res.json(err))
   },
-  updateUsers: (req, res) => {
-    const data = {
-      username: req.body.username,
-      password: req.body.password
-    }
-
-    const id = {
-      id_user: req.params.id_user
-    }
-
-    modelUsers.updateUsers(data, id)
-      .then(result => res.json(result))
-      .catch(err => console.log(err))
-  },
   deleteUsers: (req, res) => {
     const id = {
       id_user: req.params.id_user
@@ -116,8 +104,7 @@ module.exports = {
       const token = bearer[1]
       jwt.verify(token, process.env.SECRET_KEY, (err, AuthData) => {
         if (err) {
-          res.json({ msg: 'Invalid Token!' })
-          res.sendStatus(403)
+          res.json((403), { msg: 'Invalid Token!' })
         } else {
           req.id_user = AuthData.user.id
           req.email = AuthData.user.email
@@ -125,7 +112,7 @@ module.exports = {
         }
       })
     } catch (err) {
-      res.sendStatus(403)
+      res.json((403), {msg: "Login first"})
     }
   }
 }
