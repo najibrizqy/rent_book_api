@@ -1,16 +1,26 @@
 const modelBooks = require('../models/mdbooks')
 
 module.exports = {
+  //get all data books
   getAll: (req, res) => {
     const queryString = {
       search: req.query.search,
-      sort_by: req.query.sort_by,
-      type_sort: req.query.type_sort,
+      sort: req.query.sort,
+      type: req.query.type,
       page: req.query.page,
       limit: req.query.limit,
       available: req.query.available
     }
     modelBooks.getAll(queryString)
+      .then(response => res.json(response))
+      .catch(err => console.log(err))
+  },
+  //get detail book
+  detailBook: (req, res) => {
+    const id = {
+      id_book: req.params.id_book
+    }
+    modelBooks.detailBook(id)
       .then(response => res.json(response))
       .catch(err => console.log(err))
   },

@@ -2,11 +2,11 @@ const conn = require('../config/db')
 module.exports = {
   getAll: (queryString) => {
     return new Promise((resolve, reject) => {
-      const sortBy = queryString.sort_by || 'id_book'
-      const typeSort = queryString.type_sort || 'asc'
+      const sortBy = queryString.sort || 'id_book'
+      const typeSort = queryString.type || 'asc'
       const searching = queryString.search || ''
       const paging = parseInt(queryString.page) || 1
-      const limitation = queryString.limit || 2
+      const limitation = queryString.limit || 5
       const startLimit = (paging > 1) ? (paging * limitation) - limitation : 0
       const availability = queryString.available
       let totalData = 0
@@ -17,8 +17,8 @@ module.exports = {
 
       const searchingIsDefined = queryString.search != undefined
       const availableIsDefined = queryString.available != undefined
-      const sortIsDefined = queryString.sort_by != undefined
-      const typeSortIsDefined = queryString.type_sort != undefined
+      const sortIsDefined = queryString.sort != undefined
+      const typeSortIsDefined = queryString.type != undefined
 
       if (searchingIsDefined || availableIsDefined) {
         query += `WHERE title LIKE '%${searching}%' `
@@ -68,6 +68,17 @@ module.exports = {
             reject(err)
           }
         })
+      })
+    })
+  },
+  detailBook: (id) => {
+    return new Promise((resolve, reject) => {
+      conn.query('SELECT * FROM books WHERE ?', [id], (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(err)
+        }
       })
     })
   },

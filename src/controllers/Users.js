@@ -108,7 +108,7 @@ module.exports = {
       .then(result => res.json(result))
       .catch(err => console.log(err))
   },
-  // Midleware to check token user
+  // Midleware to check user token
   Auth: (req, res, next) => {
     try {
       const header = req.headers['authorization']
