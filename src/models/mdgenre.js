@@ -3,9 +3,10 @@ const conn = require('../config/db')
 module.exports = {
   getAll: (query) => {
     return new Promise((resolve, reject) => {
-      const sorting = query.sort
+      const sortBy = query.sort || 'id_genre'
+      const typeSort = query.type || 'asc'
       if (query.sort != undefined) {
-        conn.query(`SELECT * FROM genre ORDER BY name ${sorting}`, (err, result) => {
+        conn.query(`SELECT * FROM genre ORDER BY ${sortBy} ${typeSort}`, (err, result) => {
           if (!err) {
             resolve(result)
           } else {

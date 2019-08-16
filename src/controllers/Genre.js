@@ -3,7 +3,8 @@ const modelGenre = require('../models/mdgenre')
 module.exports = {
   getAll: (req, res) => {
     const query = {
-      sort: req.query.sort
+      sort: req.query.sort,
+      type: req.query.type
     }
     modelGenre.getAll(query)
       .then(result => res.json(result))

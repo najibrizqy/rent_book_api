@@ -19,7 +19,7 @@ module.exports = {
         if (result.length > 0) {
           const msg = {
             msg: 'Email is already in use'
-          }
+          } 
           resolve(msg)
         } else {
           conn.query('INSERT INTO users SET ?', data, (err, result) => {
@@ -42,17 +42,6 @@ module.exports = {
           err = {
             err: 'Your Email or Password Incorrect.'
           }
-          reject(err)
-        }
-      })
-    })
-  },
-  updateUsers: (data, id) => {
-    return new Promise((resolve, reject) => {
-      conn.query('UPDATE users SET ? WHERE ?', [data, id], (err, result) => {
-        if (!err) {
-          resolve(result)
-        } else {
           reject(err)
         }
       })

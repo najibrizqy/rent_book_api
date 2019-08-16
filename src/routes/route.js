@@ -9,6 +9,7 @@ const UsersController = require('../controllers/Users')
 Route
 // Route Book
   .get('/books', BooksController.getAll)
+  .get('/books/:id_book', BooksController.detailBook)
   .post('/books', BooksController.insertBook)
   .patch('/books/:id_book', BooksController.updateBook)
   .delete('/books/:id_book', BooksController.deleteBook)
@@ -29,7 +30,6 @@ Route
   .get('/users', UsersController.getAll)
   .post('/users/login', UsersController.login)
   .post('/users/register', UsersController.register)
-  .patch('/users/:id_user', UsersController.updateUsers)
   .delete('/users/:id_user', UsersController.deleteUsers)
 
 module.exports = Route
