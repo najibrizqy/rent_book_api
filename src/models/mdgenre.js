@@ -1,11 +1,11 @@
 const conn = require('../config/db')
 
 module.exports = {
-  getAll: (query) => {
+  getAll: (queryParams) => {
     return new Promise((resolve, reject) => {
-      const sortBy = query.sort || 'id_genre'
-      const typeSort = query.type || 'asc'
-      if (query.sort != undefined) {
+      const sortBy = queryParams.sort || 'id_genre'
+      const typeSort = queryParams.type || 'asc'
+      if (queryParams.sort != undefined) {
         conn.query(`SELECT * FROM genre ORDER BY ${sortBy} ${typeSort}`, (err, result) => {
           if (!err) {
             resolve(result)

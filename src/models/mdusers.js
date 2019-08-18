@@ -19,7 +19,7 @@ module.exports = {
         if (result.length > 0) {
           const msg = {
             msg: 'Email is already in use'
-          } 
+          }
           resolve(msg)
         } else {
           conn.query('INSERT INTO users SET ?', data, (err, result) => {
@@ -36,7 +36,7 @@ module.exports = {
   login: (data) => {
     return new Promise((resolve, reject) => {
       conn.query('SELECT * FROM users WHERE email =?', [data.email], (err, result) => {
-        if (!err) {
+        if (!err && result.length > 0) {
           resolve(result)
         } else {
           err = {

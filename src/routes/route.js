@@ -9,27 +9,27 @@ const UsersController = require('../controllers/Users')
 Route
 // Route Book
   .get('/books', BooksController.getAll)
-  .get('/books/:id_book', BooksController.detailBook)
+  .get('/books/:id', BooksController.detailBook)
   .post('/books', BooksController.insertBook)
-  .patch('/books/:id_book', BooksController.updateBook)
-  .delete('/books/:id_book', BooksController.deleteBook)
+  .patch('/books/:id', BooksController.updateBook)
+  .delete('/books/:id', BooksController.deleteBook)
 
 // Route Genre
   .get('/genre', GenreController.getAll)
   .post('/genre', GenreController.insertGenre)
-  .patch('/genre/:id_genre', GenreController.updateGenre)
-  .delete('/genre/:id_genre', GenreController.deleteGenre)
+  .patch('/genre/:id', GenreController.updateGenre)
+  .delete('/genre/:id', GenreController.deleteGenre)
 
 // Route Rent_Book
   .get('/rent_book', RentController.getAll)
   .post('/rent_book', UsersController.Auth, RentController.rentBook)
-  .patch('/rent_book/:id', RentController.returnBook)
+  .patch('/rent_book/:id', UsersController.Auth, RentController.returnBook)
   .delete('/rent_book/:id', RentController.deleteData)
 
 // Route User
   .get('/users', UsersController.getAll)
   .post('/users/login', UsersController.login)
   .post('/users/register', UsersController.register)
-  .delete('/users/:id_user', UsersController.deleteUsers)
+  .delete('/users/:id', UsersController.deleteUsers)
 
 module.exports = Route

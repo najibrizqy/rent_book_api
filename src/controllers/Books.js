@@ -1,8 +1,8 @@
 const modelBooks = require('../models/mdbooks')
 
 module.exports = {
-  //get all data books
-  getAll: (req, res) => {
+  // get all data books
+  getAll: (req, queryParams) => {
     const queryString = {
       search: req.query.search,
       sort: req.query.sort,
@@ -11,14 +11,14 @@ module.exports = {
       limit: req.query.limit,
       available: req.query.available
     }
-    modelBooks.getAll(queryString)
+    modelBooks.getAll(queryParams)
       .then(response => res.json(response))
       .catch(err => console.log(err))
   },
-  //get detail book
+  // get detail book
   detailBook: (req, res) => {
     const id = {
-      id_book: req.params.id_book
+      id_book: req.params.id
     }
     modelBooks.detailBook(id)
       .then(response => res.json(response))
@@ -52,7 +52,7 @@ module.exports = {
     }
 
     const id = {
-      id_book: req.params.id_book
+      id_book: req.params.id
     }
 
     modelBooks.updateBook(data, id)
@@ -61,7 +61,7 @@ module.exports = {
   },
   deleteBook: (req, res) => {
     const id = {
-      id_book: req.params.id_book
+      id_book: req.params.id
     }
     modelBooks.deleteBook(id)
       .then(result => res.json(result))

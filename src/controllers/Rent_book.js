@@ -22,7 +22,6 @@ module.exports = {
   },
   returnBook: (req, res) => {
     const data = {
-      id_book: req.body.id_book,
       return_at: new Date()
     }
 

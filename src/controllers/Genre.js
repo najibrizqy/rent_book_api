@@ -2,11 +2,11 @@ const modelGenre = require('../models/mdgenre')
 
 module.exports = {
   getAll: (req, res) => {
-    const query = {
+    const queryParams = {
       sort: req.query.sort,
       type: req.query.type
     }
-    modelGenre.getAll(query)
+    modelGenre.getAll(queryParams)
       .then(result => res.json(result))
       .catch(err => console.log(err))
   },
@@ -25,7 +25,7 @@ module.exports = {
     }
 
     const id = {
-      id_genre: req.params.id_genre
+      id_genre: req.params.id
     }
 
     modelGenre.updateGenre(data, id)
@@ -34,7 +34,7 @@ module.exports = {
   },
   deleteGenre: (req, res) => {
     const id = {
-      id_genre: req.params.id_genre
+      id_genre: req.params.id
     }
     modelGenre.deleteGenre(id)
       .then(result => res.json(result))

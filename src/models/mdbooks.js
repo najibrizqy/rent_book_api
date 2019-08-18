@@ -1,24 +1,24 @@
 const conn = require('../config/db')
 module.exports = {
-  getAll: (queryString) => {
+  getAll: (queryParams) => {
     return new Promise((resolve, reject) => {
-      const sortBy = queryString.sort || 'id_book'
-      const typeSort = queryString.type || 'asc'
-      const searching = queryString.search || ''
-      const paging = parseInt(queryString.page) || 1
-      const limitation = queryString.limit || 5
+      const sortBy = queryParams.sort || 'id_book'
+      const typeSort = queryParams.type || 'asc'
+      const searching = queryParams.search || ''
+      const paging = parseInt(queryParams.page) || 1
+      const limitation = queryParams.limit || 5
       const startLimit = (paging > 1) ? (paging * limitation) - limitation : 0
-      const availability = queryString.available
+      const availability = queryParams.available
       let totalData = 0
       let totalPage = 0
 
       // this is query for count total book
       let query = `SELECT COUNT(id_book) AS total FROM books `
 
-      const searchingIsDefined = queryString.search != undefined
-      const availableIsDefined = queryString.available != undefined
-      const sortIsDefined = queryString.sort != undefined
-      const typeSortIsDefined = queryString.type != undefined
+      const searchingIsDefined = queryParams.search != undefined
+      const availableIsDefined = queryParams.available != undefined
+      const sortIsDefined = queryParams.sort != undefined
+      const typeSortIsDefined = queryParams.type != undefined
 
       if (searchingIsDefined || availableIsDefined) {
         query += `WHERE title LIKE '%${searching}%' `
@@ -35,7 +35,7 @@ module.exports = {
         }
 
         // this is query for combine search, sort|typesort, page|limit, and availability
-        let query = `SELECT books.id_book, books.title, books.description, books.image, books.date_released, genre.name as genre, books.id_status FROM books INNER JOIN genre ON books.id_genre = genre.id_genre `
+        let query = `SELECT books.id_book `
 
         if (searchingIsDefined || availableIsDefined) {
           query += `WHERE title LIKE '%${searching}%' `
@@ -51,11 +51,11 @@ module.exports = {
           if (!err) {
             if (result.length > 0) {
               const response = {
-                values: result,
                 totalData: totalData,
                 page: paging,
                 totalPage: totalPage,
-                limit: limitation
+                limit: limitation,
+                values: result
               }
               resolve(response)
             } else {

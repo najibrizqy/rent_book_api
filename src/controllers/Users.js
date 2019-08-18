@@ -11,7 +11,8 @@ validateForm = (data) => {
   const schema = joi.object().keys({
     email: joi.string().email({ minDomainAtoms: 2 }),
     password: joi.string().min(6).required(),
-    created_at: joi.date()
+    created_at: joi.date(),
+    updated_at: joi.date()
   })
   const result = joi.validate(data, schema)
   if (result.error == null) {
@@ -41,7 +42,8 @@ module.exports = {
     const data = {
       email: req.body.email,
       password: hashPassword,
-      created_at: new Date()
+      created_at: new Date(),
+      updated_at: new Date()
     }
 
     if (!validateForm(data)) {
@@ -90,7 +92,7 @@ module.exports = {
   },
   deleteUsers: (req, res) => {
     const id = {
-      id_user: req.params.id_user
+      id_user: req.params.id
     }
     modelUsers.deleteUsers(id)
       .then(result => res.json(result))
@@ -112,7 +114,7 @@ module.exports = {
         }
       })
     } catch (err) {
-      res.json((403), {msg: "Login first"})
+      res.json((403), { msg: 'Login first' })
     }
   }
 }
