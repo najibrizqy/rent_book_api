@@ -35,7 +35,7 @@ module.exports = {
         }
 
         // this is query for combine search, sort|typesort, page|limit, and availability
-        let query = `SELECT books.id_book `
+        let query = `SELECT * FROM books `
 
         if (searchingIsDefined || availableIsDefined) {
           query += `WHERE title LIKE '%${searching}%' `
