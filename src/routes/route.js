@@ -9,7 +9,11 @@ const UsersController = require('../controllers/Users')
 Route
 // Route Book
   .get('/books', BooksController.getAll)
+<<<<<<< HEAD
   .get('/books/:id', BooksController.detailBook)
+=======
+  .get('/books/:id_book', BooksController.detailBook)
+>>>>>>> 79dae49c14a8791ba66a6c2eba9b12b4d5ce2333
   .post('/books', BooksController.insertBook)
   .patch('/books/:id', BooksController.updateBook)
   .delete('/books/:id', BooksController.deleteBook)
@@ -30,6 +34,10 @@ Route
   .get('/users', UsersController.getAll)
   .post('/users/login', UsersController.login)
   .post('/users/register', UsersController.register)
+<<<<<<< HEAD
   .delete('/users/:id', UsersController.deleteUsers)
+=======
+  .delete('/users/:id_user', UsersController.deleteUsers)
+>>>>>>> 79dae49c14a8791ba66a6c2eba9b12b4d5ce2333
 
 module.exports = Route

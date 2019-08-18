@@ -2,8 +2,8 @@ const modelBooks = require('../models/mdbooks')
 
 module.exports = {
   // get all data books
-  getAll: (req, queryParams) => {
-    const queryString = {
+  getAll: (req, res) => {
+    const queryParams = {
       search: req.query.search,
       sort: req.query.sort,
       type: req.query.type,
