@@ -8,22 +8,21 @@ module.exports = {
       const paging = parseInt(queryParams.page) || 1
       const limitation = queryParams.limit || 5
       const startLimit = (paging > 1) ? (paging * limitation) - limitation : 0
-      const availability = queryParams.available
+      const availability = queryParams.availability
       let totalData = 0
       let totalPage = 0
 
       // this is query for count total book
-      let query = `SELECT COUNT(id_book) AS total FROM books `
+      let query = `SELECT COUNT(id_book) AS total FROM books_list `
 
       const searchingIsDefined = queryParams.search != undefined
-      const availableIsDefined = queryParams.available != undefined
-      const sortIsDefined = queryParams.sort != undefined
-      const typeSortIsDefined = queryParams.type != undefined
+      const availableIsDefined = queryParams.availability != undefined
 
       if (searchingIsDefined || availableIsDefined) {
-        query += `WHERE title LIKE '%${searching}%' `
+        query += `WHERE `
+        query += searchingIsDefined ? `title LIKE '%${searching}%' ` : ``
         query += searchingIsDefined && availableIsDefined ? `AND ` : ``
-        query += availableIsDefined ? `id_status = ${availability} ` : ``
+        query += availableIsDefined ? `availability = '${availability}' ` : ``
       }
 
       conn.query(query, (err, rows) => {
@@ -35,17 +34,15 @@ module.exports = {
         }
 
         // this is query for combine search, sort|typesort, page|limit, and availability
-        let query = `SELECT * FROM books `
+        let query = `SELECT * FROM books_list `
 
         if (searchingIsDefined || availableIsDefined) {
-          query += `WHERE title LIKE '%${searching}%' `
+          query += `WHERE `
+          query += searchingIsDefined ? `title LIKE '%${searching}%' ` : ``
           query += searchingIsDefined && availableIsDefined ? `AND ` : ``
-          query += availableIsDefined ? `id_status = ${availability} ` : ``
+          query += availableIsDefined ? `availability = '${availability}' ` : ``
         }
-
-        if (sortIsDefined || typeSortIsDefined) {
           query += `ORDER BY ${sortBy} ${typeSort} `
-        }
 
         conn.query(query + `LIMIT ${limitation} OFFSET ${startLimit}`, (err, result) => {
           if (!err) {

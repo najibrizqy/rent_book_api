@@ -11,12 +11,8 @@ validateForm = (data) => {
   const schema = joi.object().keys({
     email: joi.string().email({ minDomainAtoms: 2 }),
     password: joi.string().min(6).required(),
-<<<<<<< HEAD
     created_at: joi.date(),
     updated_at: joi.date()
-=======
-    created_at: joi.date()
->>>>>>> 79dae49c14a8791ba66a6c2eba9b12b4d5ce2333
   })
   const result = joi.validate(data, schema)
   if (result.error == null) {
@@ -46,12 +42,8 @@ module.exports = {
     const data = {
       email: req.body.email,
       password: hashPassword,
-<<<<<<< HEAD
       created_at: new Date(),
       updated_at: new Date()
-=======
-      created_at: new Date()
->>>>>>> 79dae49c14a8791ba66a6c2eba9b12b4d5ce2333
     }
 
     if (!validateForm(data)) {
@@ -122,11 +114,7 @@ module.exports = {
         }
       })
     } catch (err) {
-<<<<<<< HEAD
       res.json((403), { msg: 'Login first' })
-=======
-      res.json((403), {msg: "Login first"})
->>>>>>> 79dae49c14a8791ba66a6c2eba9b12b4d5ce2333
     }
   }
 }

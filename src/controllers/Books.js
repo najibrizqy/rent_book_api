@@ -9,7 +9,7 @@ module.exports = {
       type: req.query.type,
       page: req.query.page,
       limit: req.query.limit,
-      available: req.query.available
+      availability: req.query.availability
     }
     modelBooks.getAll(queryParams)
       .then(response => res.json(response))
