@@ -7,8 +7,15 @@ module.exports = {
       type: req.query.type
     }
     modelGenre.getAll(queryParams)
-      .then(result => res.json(result))
-      .catch(err => console.log(err))
+      .then(result => res.json({status: 200, values : result}))
+      .catch(err => {
+        if(err.errno == 1064){
+          res.json({msg : "Type Sort must be ASC or DESC."})
+        }else if(err.errno == 1054){
+          res.json({msg : "Sort not valid."})
+        }
+        console.log(err)
+      })
   },
   insertGenre: (req, res) => {
     const data = {
@@ -17,7 +24,11 @@ module.exports = {
 
     modelGenre.insertGenre(data)
       .then(result => res.json(result))
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err)
+        if(err.errno == 1048)
+          res.json((400),{msg : "There are fields that have not been filled."})
+      })
   },
   updateGenre: (req, res) => {
     const data = {
@@ -37,7 +48,12 @@ module.exports = {
       id_genre: req.params.id
     }
     modelGenre.deleteGenre(id)
-      .then(result => res.json(result))
+      .then(result => {
+        if(result.affectedRows == 0){
+          res.json((404),{status : 404, msg : "Id not Found."})
+        }else
+        res.json({status : 200, msg: "The book has been deleted."})
+      })
       .catch(err => console.log(err))
   }
 }

@@ -13,7 +13,14 @@ module.exports = {
     }
     modelBooks.getAll(queryParams)
       .then(response => res.json(response))
-      .catch(err => console.log(err))
+      .catch(err => {
+        if(err.errno == 1064){
+          res.json({msg : "Type Sort must be ASC or DESC."})
+        }else if(err.errno == 1054){
+          res.json({msg : "Sort not valid."})
+        }
+        console.log(err)
+      })
   },
   // get detail book
   detailBook: (req, res) => {
@@ -21,7 +28,13 @@ module.exports = {
       id_book: req.params.id
     }
     modelBooks.detailBook(id)
-      .then(response => res.json(response))
+      .then(response => {
+        if(response.length > 0){
+          res.json(response)
+        }else{
+          res.json((404),{status: 404, msg : "Data not found."})
+        }
+      })
       .catch(err => console.log(err))
   },
   insertBook: (req, res) => {
@@ -37,8 +50,12 @@ module.exports = {
     }
 
     modelBooks.insertBook(data)
-      .then(result => res.json(result))
-      .catch(err => console.log(err))
+      .then(msg => res.json(msg))
+      .catch(err => {
+        console.log(err)
+        if(err.errno == 1048)
+          res.json((400),{msg : "There are fields that have not been filled."})
+      })
   },
   updateBook: (req, res) => {
     const data = {
@@ -56,7 +73,7 @@ module.exports = {
     }
 
     modelBooks.updateBook(data, id)
-      .then(result => res.json(result))
+      .then(msg => res.json(msg))
       .catch(err => console.log(err))
   },
   deleteBook: (req, res) => {
@@ -64,7 +81,12 @@ module.exports = {
       id_book: req.params.id
     }
     modelBooks.deleteBook(id)
-      .then(result => res.json(result))
+      .then(result => {
+        if(result.affectedRows == 0){
+          res.json((404),{status : 404, msg : "Id not Found."})
+        }else
+        res.json({status : 200, msg: "The book has been deleted."})
+      })
       .catch(err => console.log(err))
   }
 }

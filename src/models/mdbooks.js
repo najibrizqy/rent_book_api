@@ -51,12 +51,13 @@ module.exports = {
                 totalData: totalData,
                 page: paging,
                 totalPage: totalPage,
-                limit: limitation,
+                limit: parseInt(limitation),
                 values: result
               }
               resolve(response)
             } else {
               const msg = {
+                status : 404,
                 msg: 'Data not found'
               }
               console.log(err)
@@ -84,7 +85,11 @@ module.exports = {
     return new Promise((resolve, reject) => {
       conn.query('INSERT books SET ?', data, (err, result) => {
         if (!err) {
-          resolve(result)
+          const msg = {
+            status : 200,
+            msg : `The ${data.title} book was successfully added to the database`
+          }
+          resolve(msg)
         } else {
           reject(err)
         }
@@ -93,9 +98,20 @@ module.exports = {
   },
   updateBook: (data, id) => {
     return new Promise((resolve, reject) => {
-      conn.query('UPDATE books SET ? WHERE ?', [data, id], (err, result) => {
+      conn.query('UPDATE books SET ? WHERE ?', [data, id], (err, result, msg) => {
         if (!err) {
-          resolve(result)
+          if (result.affectedRows == 0){
+            msg = {
+              status: 404,
+              msg : "Id not found."
+            }
+          } else{
+            msg = {
+              status : 200,
+              msg : `The ${data.title} book was successfully updated`
+            }
+          }
+          resolve(msg)
         } else {
           reject(err)
         }

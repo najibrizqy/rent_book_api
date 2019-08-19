@@ -5,23 +5,13 @@ module.exports = {
     return new Promise((resolve, reject) => {
       const sortBy = queryParams.sort || 'id_genre'
       const typeSort = queryParams.type || 'asc'
-      if (queryParams.sort != undefined) {
-        conn.query(`SELECT * FROM genre ORDER BY ${sortBy} ${typeSort}`, (err, result) => {
-          if (!err) {
-            resolve(result)
-          } else {
-            reject(err)
-          }
-        })
-      } else {
-        conn.query(`SELECT * FROM genre`, (err, result) => {
-          if (!err) {
-            resolve(result)
-          } else {
-            reject(err)
-          }
-        })
-      }
+      conn.query(`SELECT * FROM genre ORDER BY ${sortBy} ${typeSort}`, (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(err)
+        }
+      })
     })
   },
   insertGenre: (data) => {
@@ -37,9 +27,20 @@ module.exports = {
   },
   updateGenre: (data, id) => {
     return new Promise((resolve, reject) => {
-      conn.query('UPDATE genre SET ? WHERE ?', [data, id], (err, result) => {
+      conn.query('UPDATE genre SET ? WHERE ?', [data, id], (err, result, msg) => {
         if (!err) {
-          resolve(result)
+          if (result.affectedRows == 0){
+            msg = {
+              status: 404,
+              msg : "Id not found."
+            }
+          } else{
+            msg = {
+              status : 200,
+              msg : `genre was successfully updated`
+            }
+          }
+          resolve(msg)
         } else {
           reject(err)
         }
