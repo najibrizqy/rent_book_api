@@ -4,13 +4,15 @@ require('dotenv').config()
 const modelUsers = require('../models/mdusers')
 const crypto = require('crypto')
 const jwt = require('jsonwebtoken')
-const joi = require('joi')
+const joi = require('@hapi/joi')
 
 // this is function to validate form
 validateForm = (data) => {
   const schema = joi.object().keys({
-    email: joi.string().email({ minDomainAtoms: 2 }),
+    username: joi.string().min(6).max(20).required(),
+    email: joi.string().email({ minDomainSegments: 2 }),
     password: joi.string().min(6).required(),
+    level: joi.string(),
     created_at: joi.date(),
     updated_at: joi.date()
   })
@@ -40,8 +42,10 @@ module.exports = {
   register: (req, res) => {
     const hashPassword = encrypt(req.body.password)
     const data = {
+      username: req.body.username,
       email: req.body.email,
       password: hashPassword,
+      level: 'user',
       created_at: new Date(),
       updated_at: new Date()
     }
@@ -61,22 +65,20 @@ module.exports = {
       password: hashPassword
     }
 
-    if (!validateForm(data)) {
-      return res.json({ msg: 'email or password not valid' })
-    }
-
     modelUsers.login(data)
       .then(result => {
         const getPassword = result[0].password // get password from db
         const user = {
           id: result[0].id_user,
-          email: result[0].email
+          username: result[0].username,
+          email: result[0].email,
+          level: result[0].level
         }
 
         if (data.password == getPassword) {
           jwt.sign({ user }, process.env.SECRET_KEY, (err, token) => {
             if (!err) {
-              res.json({ token })
+              res.json({ token : `Bearer ${token}` })
             } else {
               console.log(err)
             }
@@ -109,12 +111,17 @@ module.exports = {
           res.json((403), { msg: 'Invalid Token!' })
         } else {
           req.id_user = AuthData.user.id
+          req.username = AuthData.user.username
           req.email = AuthData.user.email
+          req.level = AuthData.user.level
           next()
         }
       })
     } catch (err) {
       res.json((403), { msg: 'Login first' })
     }
+  },
+  verifyAdmin: (req, res, next) => {
+    if (req.level === 'admin') { next() } else { res.sendStatus(403) }
   }
 }

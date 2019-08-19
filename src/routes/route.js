@@ -10,26 +10,26 @@ Route
 // Route Book
   .get('/books', BooksController.getAll)
   .get('/books/:id', BooksController.detailBook)
-  .post('/books', BooksController.insertBook)
-  .patch('/books/:id', BooksController.updateBook)
-  .delete('/books/:id', BooksController.deleteBook)
+  .post('/books', UsersController.Auth, UsersController.verifyAdmin, BooksController.insertBook)
+  .patch('/books/:id', UsersController.Auth, UsersController.verifyAdmin, BooksController.updateBook)
+  .delete('/books/:id',  UsersController.Auth, UsersController.verifyAdmin, BooksController.deleteBook)
 
 // Route Genre
   .get('/genre', GenreController.getAll)
-  .post('/genre', GenreController.insertGenre)
-  .patch('/genre/:id', GenreController.updateGenre)
-  .delete('/genre/:id', GenreController.deleteGenre)
+  .post('/genre', UsersController.Auth, UsersController.verifyAdmin, GenreController.insertGenre)
+  .patch('/genre/:id', UsersController.Auth, UsersController.verifyAdmin, GenreController.updateGenre)
+  .delete('/genre/:id', UsersController.Auth, UsersController.verifyAdmin, GenreController.deleteGenre)
 
 // Route Rent_Book
-  .get('/rent_book', RentController.getAll)
+  .get('/rent_book', UsersController.Auth, RentController.getAll)
   .post('/rent_book', UsersController.Auth, RentController.rentBook)
   .patch('/rent_book/:id', UsersController.Auth, RentController.returnBook)
-  .delete('/rent_book/:id', RentController.deleteData)
+  .delete('/rent_book/:id', UsersController.Auth, UsersController.verifyAdmin, RentController.deleteData)
 
 // Route User
-  .get('/users', UsersController.getAll)
+  .get('/users', UsersController.Auth, UsersController.verifyAdmin, UsersController.getAll)
   .post('/users/login', UsersController.login)
   .post('/users/register', UsersController.register)
-  .delete('/users/:id', UsersController.deleteUsers)
+  .delete('/users/:id', UsersController.Auth, UsersController.verifyAdmin, UsersController.deleteUsers)
 
 module.exports = Route
