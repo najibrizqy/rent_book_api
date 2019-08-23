@@ -53,7 +53,7 @@ module.exports = {
     }
 
     if (!validateForm(data)) {
-      return res.json({ msg: 'data not valid' })
+      return res.json({status: 401, msg: 'data not valid' })
     }
 
     modelUsers.register(data)
@@ -81,14 +81,22 @@ module.exports = {
         if (data.password == getPassword) {
           jwt.sign({ user }, process.env.SECRET_KEY, (err, token) => {
             if (!err) {
-              res.json({ token : `Bearer ${token}` })
+              const dataUser ={
+                token: `Bearer ${token}`,
+                id_user: user.id,
+                username: user.username,
+                full_name: user.full_name,
+                email: user.email,
+                level: user.level
+              }
+              res.json({dataUser})
             } else {
               console.log(err)
             }
           })
         } else {
           const errMessage = {
-            status: 404,
+            status: 401,
             err: 'Your Email or Password Incorrect.'
           }
           res.json(errMessage)

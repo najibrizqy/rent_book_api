@@ -18,6 +18,7 @@ module.exports = {
       conn.query('SELECT * FROM users WHERE email =?', [data.email], (err, result) => {
         if (result.length > 0) {
           const msg = {
+            status: 403,
             msg: 'Email is already in use'
           } 
           resolve(msg)
@@ -44,7 +45,7 @@ module.exports = {
           resolve(result)
         } else {
           err = {
-            status: 404,
+            status: 401,
             err: 'Your Email or Password Incorrect.'
           }
           reject(err)
