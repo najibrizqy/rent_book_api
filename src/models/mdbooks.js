@@ -81,6 +81,32 @@ module.exports = {
       })
     })
   },
+  getBookYears: () => {
+    return new Promise((resolve, reject) => {
+      conn.query('SELECT YEAR(date_released) AS year FROM books_list GROUP BY year', (err, result) => {
+        if (!err) {
+          const msg = {
+            status : 200,
+            values : result
+          }
+          resolve(msg)
+        } else {
+            reject(err) 
+        }
+      })
+    })
+  },
+  getBookByYear: (year) => {
+    return new Promise((resolve, reject) => {
+      conn.query(`SELECT * FROM books_list WHERE YEAR(date_released) = ${year}`, (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(err) 
+        }
+      })
+    })
+  },
   insertBook: (data) => {
     return new Promise((resolve, reject) => {
       conn.query('INSERT books SET ?', data, (err, result) => {

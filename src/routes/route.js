@@ -9,6 +9,8 @@ const UsersController = require('../controllers/Users')
 Route
 // Route Book
   .get('/books', BooksController.getAll)
+  .get('/books/year/', BooksController.getBookYears)
+  .get('/books/year/:year', BooksController.getBookByYear)
   .get('/books/:id', BooksController.detailBook)
   .post('/books', UsersController.Auth, UsersController.verifyAdmin, BooksController.insertBook)
   .patch('/books/:id', UsersController.Auth, UsersController.verifyAdmin, BooksController.updateBook)

@@ -37,6 +37,28 @@ module.exports = {
       })
       .catch(err => console.log(err))
   },
+  getBookYears: (req, res) => {
+    modelBooks.getBookYears()
+      .then(msg => {
+        res.json(msg)
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  },
+  getBookByYear: (req, res) => {
+    modelBooks.getBookByYear(req.params.year)
+      .then(response => {
+        if(response.length > 0){
+          res.json(response)
+        }else{
+          res.json((404),{status: 404, msg : "Data not found."})
+        }
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  },
   insertBook: (req, res) => {
     const data = {
       title: req.body.title,
