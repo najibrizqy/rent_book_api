@@ -24,7 +24,11 @@ module.exports = {
         } else {
           conn.query('INSERT INTO users SET ?', data, (err, result) => {
             if (!err) {
-              resolve(result)
+              const msg = {
+                status: 200,
+                msg: 'Register success'
+              } 
+              resolve(msg)
             } else {
               reject(err)
             }
@@ -40,6 +44,7 @@ module.exports = {
           resolve(result)
         } else {
           err = {
+            status: 404,
             err: 'Your Email or Password Incorrect.'
           }
           reject(err)
