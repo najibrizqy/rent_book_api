@@ -5,6 +5,7 @@ const BooksController = require('../controllers/Books')
 const GenreController = require('../controllers/Genre')
 const RentController = require('../controllers/Rent_book')
 const UsersController = require('../controllers/Users')
+const StatusController = require('../controllers/Status')
 
 Route
 // Route Book
@@ -33,5 +34,8 @@ Route
   .post('/users/login', UsersController.login)
   .post('/users/register', UsersController.register)
   .delete('/users/:id', UsersController.Auth, UsersController.verifyAdmin, UsersController.deleteUsers)
+
+// Route Status
+  .get('/status', StatusController.getAll)
 
 module.exports = Route

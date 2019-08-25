@@ -72,7 +72,7 @@ module.exports = {
   },
   detailBook: (id) => {
     return new Promise((resolve, reject) => {
-      conn.query('SELECT * FROM books WHERE ?', [id], (err, result) => {
+      conn.query('SELECT * FROM books_list WHERE ?', [id], (err, result) => {
         if (!err) {
           resolve(result)
         } else {
@@ -83,7 +83,7 @@ module.exports = {
   },
   getBookYears: () => {
     return new Promise((resolve, reject) => {
-      conn.query('SELECT YEAR(date_released) AS year FROM books_list GROUP BY year', (err, result) => {
+      conn.query('SELECT YEAR(date_released) AS year FROM books_list GROUP BY year ORDER BY year DESC', (err, result) => {
         if (!err) {
           const msg = {
             status : 200,
