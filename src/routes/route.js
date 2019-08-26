@@ -31,6 +31,7 @@ Route
 
 // Route User
   .get('/users', UsersController.Auth, UsersController.verifyAdmin, UsersController.getAll)
+  .get('/users/profile', UsersController.Auth, UsersController.getProfile)
   .post('/users/login', UsersController.login)
   .post('/users/register', UsersController.register)
   .delete('/users/:id', UsersController.Auth, UsersController.verifyAdmin, UsersController.deleteUsers)

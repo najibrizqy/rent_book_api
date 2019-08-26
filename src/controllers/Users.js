@@ -40,6 +40,16 @@ module.exports = {
       .then(result => res.json(result))
       .catch(err => console.log(err))
   },
+  getProfile: (req, res) =>{
+    const userProfile = {
+      id: req.id_user,
+      username: req.username,
+      fullname: req.full_name,
+      email: req.email,
+      level: req.level
+    }
+    return res.json(userProfile)
+  },
   register: (req, res) => {
     const hashPassword = encrypt(req.body.password)
     const data = {
