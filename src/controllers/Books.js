@@ -50,7 +50,28 @@ module.exports = {
     modelBooks.getBookByYear(req.params.year)
       .then(response => {
         if(response.length > 0){
-          res.json(response)
+          const msg = {
+            status: 200,
+            values: response
+          }
+          res.json(msg)
+        }else{
+          res.json((404),{status: 404, msg : "Data not found."})
+        }
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  },
+  getBookByGenre: (req, res) => {
+    modelBooks.getBookByGenre(req.params.genre)
+      .then(response => {
+        if(response.length > 0){
+          const msg = {
+            status: 200,
+            values: response
+          }
+          res.json(msg)
         }else{
           res.json((404),{status: 404, msg : "Data not found."})
         }

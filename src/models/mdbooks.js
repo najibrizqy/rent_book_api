@@ -107,12 +107,24 @@ module.exports = {
       })
     })
   },
+  getBookByGenre: (genre) => {
+    return new Promise((resolve, reject) => {
+      conn.query(`SELECT * FROM books_list WHERE genre = ?`, genre, (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(err) 
+        }
+      })
+    })
+  },
   insertBook: (data) => {
     return new Promise((resolve, reject) => {
       conn.query('INSERT books SET ?', data, (err, result) => {
         if (!err) {
           const msg = {
             status : 200,
+            values : data,
             msg : `The ${data.title} book was successfully added to the database`
           }
           resolve(msg)
