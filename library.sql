@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 27, 2019 at 07:55 AM
+-- Generation Time: Aug 28, 2019 at 10:46 AM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.6
 
@@ -46,19 +46,20 @@ CREATE TABLE `books` (
 
 INSERT INTO `books` (`id_book`, `title`, `description`, `image`, `date_released`, `id_genre`, `id_status`, `created_at`, `updated_at`) VALUES
 (1, 'Kata', 'Kata, bercerita tentang Nugraha, Biru, dan Binta yang kian menjauh tanpa pernah menjelaskan perasaan satu sama lain. Mereka harus bicara dan mulai membuka hati, dan mengungkapkan isi hati agar persahabatan mereka sempurna kembali dari luka karena cinta.', 'https://www.gramedia.com/blog/content/images/2018/12/Kata-Rintik-Sedu-1.jpg', '2018-04-12', 4, 1, '2019-08-16 16:05:21', '2019-08-16 16:05:21'),
-(2, 'Garis Waktu: Sebuah Perjalanan Menghapus Luka', 'Setelah Konspirasi Alam Semesta, Karya kedua dari Fiersa Besari yang berisikan kumpulan cerita yang saling berkaitan ini merupakan memoar hati yang dirangkai indah lengkap dengan rima yang menarik oleh si penulis yang juga seorang penyanyi ini. Dibuat seolah bermonolog, membuat kisah di dalamnya memiliki daya tarik tersendiri.', 'https://i2.wp.com/bukubabad.com/wp-content/uploads/2018/12/Garis-Waktu-1.jpg?fit=600%2C600', '2019-04-12', 5, 1, '2019-08-16 16:06:21', '2019-08-16 16:06:21'),
-(3, 'Bumi Manusia', 'Naskah Bumi Manusia dibuat ketika Pram diasingkan dan dipenjara di Pulau Buru. Naskah ini telah melewati masa-masa buruk bersama Pram mulai disembunyikan, dikubur, disita, hingga ditulis kembali. Kini, buku ini dielu-elukan sebagai karya sastra Indonesia terbesar dan mendapatkan 12 penghargaan internasional.', 'https://www.gramedia.com/blog/content/images/2018/12/Bumi-Manusia.jpg', '2017-05-05', 6, 1, '2019-08-16 16:12:30', '2019-08-16 16:12:30'),
+(2, 'Garis Waktu: Sebuah Perjalanan Menghapus Luka', 'Setelah Konspirasi Alam Semesta, Karya kedua dari Fiersa Besari yang berisikan kumpulan cerita yang saling berkaitan ini merupakan memoar hati yang dirangkai indah lengkap dengan rima yang menarik oleh si penulis yang juga seorang penyanyi ini. Dibuat seolah bermonolog, membuat kisah di dalamnya memiliki daya tarik tersendiri.', 'https://i2.wp.com/bukubabad.com/wp-content/uploads/2018/12/Garis-Waktu-1.jpg?fit=600%2C600', '2019-04-12', 5, 2, '2019-08-16 16:06:21', '2019-08-16 16:06:21'),
 (4, 'Berhenti di Kamu', 'Berawal dari cuitan di Twitter tentang jatuh bangun kisah cintanya, kini Gia Pratama yang berprofesi sebagai dokter mencurahkan kisahnya itu ke dalam sebuah buku yang diberi judul #Berhentidikamu.', 'https://www.gramedia.com/blog/content/images/2018/12/berhentidikamu.jpg', '2018-07-23', 4, 1, '2019-08-16 16:13:18', '2019-08-16 16:13:18'),
 (5, 'One Punch Man', 'Botak botak botak botak botak botak botak botak botak botak botak botak botak botak botak botak botak botak botak botak botak botak botak ', 'https://static0.srcdn.com/wordpress/wp-content/uploads/2019/08/One-Punch-Man-Road-to-Hero-Key-Art.jpg', '2018-08-10', 3, 1, '2019-08-16 16:14:16', '2019-08-16 16:14:16'),
 (6, 'ANAK SEMUA BANGSA', 'Lanjutan dari Bumi Manusia, novel Anak Semua Bangsa masih bercerita tentang Minke tapi lebih menceritakan tentang kondisi negara Indonesia di tahun 1898-1918. Semasa penjajahan Hindia Belanda, rakyat Indonesia mengalami penderitaan. Mereka ditindas, diteror, dan dipaksa untuk memberikan tanahnya kepada bangsa Belanda.', 'http://1.bp.blogspot.com/-rFfqpW7igG8/T_Y2mVCiyxI/AAAAAAAAAbA/wSOjRFpVJc4/s1600/anak+semua+bangsa.jpg', '2015-08-10', 7, 1, '2019-08-17 05:47:23', '2019-08-17 05:47:23'),
 (7, 'Ronggeng Dukuh Paruk', 'Lanjutan dari Bumi Manusia, novel Anak Semua Bangsa masih bercerita tentang Minke tapi lebih menceritakan tentang kondisi negara Indonesia di tahun 1898-1918. Semasa penjajahan Hindia Belanda, rakyat Indonesia mengalami penderitaan. Mereka ditindas, diteror, dan dipaksa untuk memberikan tanahnya kepada bangsa Belanda.', 'https://scontent-cdg2-1.cdninstagram.com/vp/fe32b5d68524ea3b0c2b728932cc412d/5DBD0F14/t51.2885-15/e35/65272118_2129437803834218_1310656860483878727_n.jpg?_nc_ht=scontent-cdg2-1.cdninstagram.com&se=7&ig_cache_key=MjA3MTgzMzEwMDMzODE5ODk2MA%3D%3D.2', '2016-08-10', 6, 1, '2019-08-17 05:49:13', '2019-08-17 05:49:13'),
 (8, '5 CM', 'Menjadi buku terlaris di Gramedia Bookstore selama dua tahun berturut-turut, novel 5 Cm tentunya harus masuk dalam daftar novel Indonesia terbaik yang wajib dibaca. Novel yang ditulis oleh Donny Dhirgantoro ini menceritakan tentang kehidupan lima sahabat yang telah berteman selama tujuh tahun.', 'http://4.bp.blogspot.com/-eufkk6Oa-9U/VJMBf4FdG0I/AAAAAAAAABo/w7R8fVTsGVE/s1600/film-5-cm-5-sahabat-sutradara-rizal-mantovani.jpg', '2010-08-10', 2, 1, '2019-08-17 05:51:13', '2019-08-17 05:51:13'),
 (9, 'Sang Pemimpi', 'Sang Pemimpi merupakan biku kedua dari tetralogi Laskar Pelangi, novel Sang Pemimpi menceritakan tentang hubungan persahabatan Ikal dan Arai serta kekuatan mimpi mereka untuk bisa menuntut ilmu di Perancis.', 'https://ecs7.tokopedia.net/img/cache/700/product-1/2016/5/26/9514068/9514068_9568af77-32c3-42af-a2ac-fddd4b766f9a.jpg', '2011-11-11', 2, 1, '2019-08-17 06:54:19', '2019-08-17 06:54:19'),
-(10, 'Soul Land 2', 'Sebuah pulau dengan sihir keluar, dou-qi, seni bela diri, tapi memiliki roh esensi. Ini adalah benua tempur 10 000 tahun setelah pembentukan Tang Sect. Seorang pahlawan baru dan temannya berjalan tanah, baru \"Tujuh Monster dari Shrek\", akan mereka menjaga nama Tang Sekte? Atau akan runtuh karena sistem esensi baru?', 'https://wallpapercave.com/wp/wp4099483.jpg', '2018-02-01', 10, 1, NULL, NULL),
+(10, 'Soul Land 2', 'Sebuah pulau dengan sihir keluar, dou-qi, seni bela diri, tapi memiliki roh esensi. Ini adalah benua tempur 10 000 tahun setelah pembentukan Tang Sect. Seorang pahlawan baru dan temannya berjalan tanah, baru \"Tujuh Monster dari Shrek\", akan mereka menjaga nama Tang Sekte? Atau akan runtuh karena sistem esensi baru?', 'https://wallpapercave.com/wp/wp4099483.jpg', '2018-02-01', 10, 1, '2019-08-17 06:54:19', '2019-08-17 06:54:19'),
 (11, 'Boruto', 'Boruto: Naruto Next Generations is a Japanese manga series written by Uky? Kodachi and illustrated by Mikio Ikemoto. It was serialised monthly in Shueisha\'s sh?nen manga magazine Weekly Sh?nen Jump since May 2016 until it was transferred to Shueisha\'s monthly magazine V Jump in July 2019', 'https://dimwhp0w2rs83.cloudfront.net/2017/02/Serial-Anime-Boruto-2.jpg', '2019-08-24', 6, 1, '2019-08-24 01:38:07', '2019-08-24 03:43:16'),
 (12, 'Laskar Pelangi', 'Laskar Pelangi (English: The Rainbow Troops) is a 2008 Indonesian film adapted from the popular Laskar Pelangi (novel) by Andrea Hirata. The movie follows a group of 10 schoolchildren and their two inspirational teachers as they struggle with poverty and develop hopes for the future in Gantong Village on the farming and tin mining island of Belitung off the east coast of Sumatra. The film is one of the highest grossing in Indonesian box office history[1] and won a number of local and international awards.', 'https://media.karousell.com/media/photos/products/2018/05/17/laskar_pelangi_1526550002_321de5c5.jpg', '2019-08-01', 2, 1, '2019-08-24 06:38:42', '2019-08-24 06:38:42'),
 (13, 'Negeri 5 menara', 'iahsdhiasdhasd', 'https://cdn.medcom.id/images/content/2019/05/03/1017155/znLTZOchBy.jpg', '2019-08-02', 7, 1, '2019-08-24 09:48:49', '2019-08-24 09:48:49'),
-(14, 'Solo Leveling', 'Solo Leveling (? ??? ???, Na Honjaman Lebel-eob) is a story about the weakest hunter Sung Jin-Woo and his quest to become the strongest, S-Rank hunter. ... The series started as an unpublished novel in February 14, 2014 which ended originally with 14 volumes and 270 chapters.', 'https://wallpapercave.com/wp/wp4275387.jpg', '2019-08-24', 10, 1, '2019-08-25 18:39:22', '2019-08-25 18:39:22');
+(14, 'Solo Leveling', 'Solo Leveling (? ??? ???, Na Honjaman Lebel-eob) is a story about the weakest hunter Sung Jin-Woo and his quest to become the strongest, S-Rank hunter. ... The series started as an unpublished novel in February 14, 2014 which ended originally with 14 volumes and 270 chapters.', 'https://wallpapercave.com/wp/wp4275387.jpg', '2019-08-24', 10, 1, '2019-08-25 18:39:22', '2019-08-25 18:39:22'),
+(15, 'Sword Art Online 4: Fairy Dance', 'Kirito plunges into a suspicious new VRMMORPG called ALfheim Online to rescue Asuna, who never returned from Sword Art Online. ALO offers many features to entertain players in the wake of SAO: ultra-high-end graphics, action-heavy gameplay, a choice of fairy races, and a next-generation flight engine. Playing as a spriggan, Kirito heads for the location of Asuna\'s prison--the top of the World Tree, the final destination of every player in the game! Along the way, Kirito nearly falls to a plot hatched by the enemy salamanders, just barely surviving the ordeal with the help of a sylph named Leafa and his Navigation Pixie, Yui.', 'https://yenpress-us.imgix.net/covers/9780316296434.JPG?auto=format&w=298', '2019-08-28', 5, 1, '2019-08-28 09:24:08', '2019-08-28 09:24:08'),
+(16, 'One Piece', 'One Piece (Japanese: ????? Hepburn: Wan P?su) is a Japanese manga series written and illustrated by Eiichiro Oda. It has been serialized in Shueisha\'s Weekly Sh?nen Jump magazine since July 22, 1997, and has been collected into 93 tank?bon volumes.', 'https://images6.alphacoders.com/606/thumb-1920-606263.jpg', '2019-08-26', 3, 1, '2019-08-28 09:41:41', '2019-08-28 09:41:41');
 
 -- --------------------------------------------------------
 
@@ -136,6 +137,13 @@ CREATE TABLE `transaction` (
   `rent_at` datetime DEFAULT NULL,
   `return_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `transaction`
+--
+
+INSERT INTO `transaction` (`id`, `id_user`, `id_book`, `rent_at`, `return_at`) VALUES
+(1, 1, 2, '2019-08-28 13:25:00', NULL);
 
 --
 -- Triggers `transaction`
@@ -237,7 +245,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `id_book` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_book` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `genre`
@@ -255,7 +263,7 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
