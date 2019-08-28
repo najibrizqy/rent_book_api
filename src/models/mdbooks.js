@@ -6,7 +6,7 @@ module.exports = {
       const typeSort = queryParams.type || 'asc'
       const searching = queryParams.search || ''
       const paging = parseInt(queryParams.page) || 1
-      const limitation = queryParams.limit || 5
+      const limitation = queryParams.limit || 10
       const startLimit = (paging > 1) ? (paging * limitation) - limitation : 0
       const availability = queryParams.availability
       let totalData = 0
@@ -72,11 +72,48 @@ module.exports = {
   },
   detailBook: (id) => {
     return new Promise((resolve, reject) => {
-      conn.query('SELECT * FROM books WHERE ?', [id], (err, result) => {
+      conn.query('SELECT * FROM books_list WHERE ?', [id], (err, result) => {
         if (!err) {
           resolve(result)
         } else {
           reject(err)
+        }
+      })
+    })
+  },
+  getBookYears: () => {
+    return new Promise((resolve, reject) => {
+      conn.query('SELECT YEAR(date_released) AS year FROM books_list GROUP BY year ORDER BY year DESC', (err, result) => {
+        if (!err) {
+          const msg = {
+            status : 200,
+            values : result
+          }
+          resolve(msg)
+        } else {
+            reject(err) 
+        }
+      })
+    })
+  },
+  getBookByYear: (year) => {
+    return new Promise((resolve, reject) => {
+      conn.query(`SELECT * FROM books_list WHERE YEAR(date_released) = ${year}`, (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(err) 
+        }
+      })
+    })
+  },
+  getBookByGenre: (genre) => {
+    return new Promise((resolve, reject) => {
+      conn.query(`SELECT * FROM books_list WHERE genre = ?`, genre, (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(err) 
         }
       })
     })
@@ -87,6 +124,7 @@ module.exports = {
         if (!err) {
           const msg = {
             status : 200,
+            values : data,
             msg : `The ${data.title} book was successfully added to the database`
           }
           resolve(msg)

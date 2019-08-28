@@ -18,13 +18,18 @@ module.exports = {
       conn.query('SELECT * FROM users WHERE email =?', [data.email], (err, result) => {
         if (result.length > 0) {
           const msg = {
+            status: 403,
             msg: 'Email is already in use'
           } 
           resolve(msg)
         } else {
           conn.query('INSERT INTO users SET ?', data, (err, result) => {
             if (!err) {
-              resolve(result)
+              const msg = {
+                status: 200,
+                msg: 'Register success'
+              } 
+              resolve(msg)
             } else {
               reject(err)
             }
@@ -40,6 +45,7 @@ module.exports = {
           resolve(result)
         } else {
           err = {
+            status: 401,
             err: 'Your Email or Password Incorrect.'
           }
           reject(err)

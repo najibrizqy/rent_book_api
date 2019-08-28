@@ -9,7 +9,8 @@ const joi = require('@hapi/joi')
 // this is function to validate form
 validateForm = (data) => {
   const schema = joi.object().keys({
-    username: joi.string().min(6).max(20).required(),
+    username: joi.string().min(3).max(12).required(),
+    full_name: joi.string().min(6).max(20).required(),
     email: joi.string().email({ minDomainSegments: 2 }),
     password: joi.string().min(6).required(),
     level: joi.string(),
@@ -39,10 +40,21 @@ module.exports = {
       .then(result => res.json(result))
       .catch(err => console.log(err))
   },
+  getProfile: (req, res) =>{
+    const userProfile = {
+      id: req.id_user,
+      username: req.username,
+      fullname: req.full_name,
+      email: req.email,
+      level: req.level
+    }
+    return res.json(userProfile)
+  },
   register: (req, res) => {
     const hashPassword = encrypt(req.body.password)
     const data = {
       username: req.body.username,
+      full_name: req.body.full_name,
       email: req.body.email,
       password: hashPassword,
       level: 'user',
@@ -51,7 +63,7 @@ module.exports = {
     }
 
     if (!validateForm(data)) {
-      return res.json({ msg: 'email or password not valid' })
+      return res.json({status: 401, msg: 'data not valid' })
     }
 
     modelUsers.register(data)
@@ -71,6 +83,7 @@ module.exports = {
         const user = {
           id: result[0].id_user,
           username: result[0].username,
+          full_name: result[0].full_name,
           email: result[0].email,
           level: result[0].level
         }
@@ -78,14 +91,23 @@ module.exports = {
         if (data.password == getPassword) {
           jwt.sign({ user }, process.env.SECRET_KEY, (err, token) => {
             if (!err) {
-              res.json({ token : `Bearer ${token}` })
+              const dataUser ={
+                token: `Bearer ${token}`,
+                id_user: user.id,
+                username: user.username,
+                full_name: user.full_name,
+                email: user.email,
+                level: user.level
+              }
+              res.json({dataUser})
             } else {
               console.log(err)
             }
           })
         } else {
           const errMessage = {
-            errMessage: 'Your Email or Password Incorrect.'
+            status: 401,
+            err: 'Your Email or Password Incorrect.'
           }
           res.json(errMessage)
         }
@@ -112,6 +134,7 @@ module.exports = {
         } else {
           req.id_user = AuthData.user.id
           req.username = AuthData.user.username
+          req.full_name = AuthData.user.full_name
           req.email = AuthData.user.email
           req.level = AuthData.user.level
           next()
