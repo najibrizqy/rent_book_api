@@ -91,15 +91,7 @@ module.exports = {
         if (data.password == getPassword) {
           jwt.sign({ user }, process.env.SECRET_KEY, (err, token) => {
             if (!err) {
-              const dataUser ={
-                token: `Bearer ${token}`,
-                id_user: user.id,
-                username: user.username,
-                full_name: user.full_name,
-                email: user.email,
-                level: user.level
-              }
-              res.json({dataUser})
+              res.json({token: `Bearer ${token}`})
             } else {
               console.log(err)
             }

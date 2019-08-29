@@ -30,7 +30,11 @@ module.exports = {
     modelBooks.detailBook(id)
       .then(response => {
         if(response.length > 0){
-          res.json(response)
+          const msg = {
+            status: 200,
+            values: response
+          }
+          res.json(msg)
         }else{
           res.json((404),{status: 404, msg : "Data not found."})
         }
