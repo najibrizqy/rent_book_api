@@ -8,7 +8,7 @@ module.exports = {
   },
   rentBook: (req, res) => {
     const data = {
-      id_user: req.id_user,
+      id_user: req.body.id_user,
       id_book: req.body.id_book,
       rent_at: new Date()
     }

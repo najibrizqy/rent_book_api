@@ -63,10 +63,21 @@ module.exports = {
     }
 
     if (!validateForm(data)) {
-      return res.json({status: 401, msg: 'data not valid' })
+      return res.json(404, {status: 404, errMsg: 'data not valid' })
     }
 
-    modelUsers.register(data)
+    modelUsers.getEmail(data.email)
+      .then(result => {
+        if(result.length === 0){
+          return modelUsers.register(data)
+        }else{
+          const msg ={
+            status : 409,
+            errMsg : "Email is already in use."
+          }
+          res.json(409, msg)
+        }
+      })
       .then(result => res.json(result))
       .catch(err => console.log(err))
   },
@@ -98,13 +109,13 @@ module.exports = {
           })
         } else {
           const errMessage = {
-            status: 401,
-            err: 'Your Email or Password Incorrect.'
+            status: 404,
+            errMsg: 'Your Email or Password Incorrect.'
           }
-          res.json(errMessage)
+          res.json(404, errMessage)
         }
       })
-      .catch(err => res.json(err))
+      .catch(err => res.json(404, err))
   },
   deleteUsers: (req, res) => {
     const id = {
