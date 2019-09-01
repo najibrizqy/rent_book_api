@@ -12,6 +12,17 @@ module.exports = {
       })
     })
   },
+  getUserById: (id) => {
+    return new Promise((resolve, reject) => {
+      conn.query('SELECT * FROM users WHERE ?', [id], (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(err)
+        }
+      })
+    })
+  },
   getEmail: (data) => {
     return new Promise((resolve, reject) => {
       conn.query('SELECT * FROM users WHERE email =?', data, (err, result) => {

@@ -12,30 +12,51 @@ module.exports = {
       })
     })
   },
-  rentBook: (data, id) => {
+  getBorrowedBook: (data) => {
     return new Promise((resolve, reject) => {
-      conn.query('SELECT * FROM books WHERE ?', [id], (err, result) => {
-        const errorId = {
-          errorId: 'id book not found.'
+      conn.query('SELECT * FROM transaction WHERE id_book =? AND return_at IS ?', [data.id_book, data.return_at], (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(err)
         }
+      })
+    })
+  },
+  rentBook: (data) => {
+    return new Promise((resolve, reject) => {
+      conn.query('SELECT * FROM users WHERE id_user =?', data.id_user, (err, result) => {
         const msg = {
-          msg: 'Book is not available.'
+          errMsg: 'User not found.'
         }
         if (result.length == 0) {
-          reject(errorId)
+          reject(msg)
         } else {
-          const getStatus = result[0].id_status
-          if (!err && getStatus == 1) {
-            conn.query('INSERT INTO transaction SET ?', data, (err, result) => {
-              if (!err) {
-                resolve(result)
-              } else {
-                reject(err)
+          conn.query('SELECT * FROM books WHERE id_book =?', data.id_book, (err, result) => {
+            console.log(result)
+            if (result.length == 0) {
+              const msg = {
+                errMsg: 'Book not found.'
               }
-            })
-          } else {
-            reject(msg)
-          }
+              reject(msg)
+            }else{
+              const getStatus = result[0].id_status
+              if (!err && getStatus == 1) {
+                conn.query('INSERT INTO transaction SET ?', data, (err, result) => {
+                  if (!err) {
+                    resolve(result)
+                  } else {
+                    reject(err)
+                  }
+                })
+              } else {
+                const msg = {
+                  errMsg: 'Book is not available.'
+                }
+                reject(msg)
+              }
+            }
+          })
         }
       })
     })

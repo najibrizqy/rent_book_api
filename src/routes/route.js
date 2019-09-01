@@ -26,12 +26,15 @@ Route
 
 // Route Rent_Book
   .get('/rent_book', UsersController.Auth, RentController.getAll)
+  .get('/rent_book/borrowed/:id', UsersController.Auth, RentController.getBorrowedBook)
+  .get('/rent_book/history/', UsersController.Auth, RentController.getBorrowedBook)
   .post('/rent_book', UsersController.Auth, RentController.rentBook)
-  .patch('/rent_book/:id', UsersController.Auth, RentController.returnBook)
+  .patch('/rent_book/:id', UsersController.Auth, UsersController.verifyAdmin, RentController.returnBook)
   .delete('/rent_book/:id', UsersController.Auth, UsersController.verifyAdmin, RentController.deleteData)
 
 // Route User
   .get('/users', UsersController.Auth, UsersController.verifyAdmin, UsersController.getAll)
+  .get('/users/:id', UsersController.Auth, UsersController.verifyAdmin, UsersController.getUserById)
   .get('/users/profile', UsersController.Auth, UsersController.getProfile)
   .post('/users/login', UsersController.login)
   .post('/users/register', UsersController.register)

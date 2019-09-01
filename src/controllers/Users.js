@@ -40,6 +40,20 @@ module.exports = {
       .then(result => res.json(result))
       .catch(err => console.log(err))
   },
+  getUserById: (req, res) => {
+    const id = {
+      id_user: req.params.id
+    }
+    modelUsers.getUserById(id)
+      .then(result => {
+        const msg = {
+          status: 200,
+          values: result
+        }
+        res.json(msg)
+      })
+      .catch(err => console.log(err))
+  },
   getProfile: (req, res) =>{
     const userProfile = {
       id: req.id_user,
