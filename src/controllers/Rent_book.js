@@ -1,4 +1,5 @@
 const modelRent = require('../models/mdrentbook')
+const modelBooks = require('../models/mdbooks')
 
 module.exports = {
   getAll: (req, res) => {
@@ -6,9 +7,21 @@ module.exports = {
       .then(result => res.json(result))
       .catch(err => console.log(err))
   },
-  getAll: (req, res) => {
-    modelRent.getAll()
-      .then(result => res.json(result))
+  getHistory: (req, res) => {
+    const id = {
+      id_user: req.params.id
+    }
+    modelRent.getHistory(id)
+      .then(result => {
+        const msg = {
+          status: 200,
+          values: result
+        }
+        if(result.length > 0){
+          res.json(msg)
+        }else
+          res.json(404, {errMsg: "User no found."})   
+      })
       .catch(err => console.log(err))
   },
   getBorrowedBook:(req, res) => {
@@ -34,7 +47,10 @@ module.exports = {
     }
 
     modelRent.rentBook(data)
-      .then(result => res.json(result))
+      .then(result => {
+        modelBooks.setStatus(data.id_book, 2)
+        res.json(result)
+      })
       .catch(err => res.json(404, err))
   },
   returnBook: (req, res) => {
@@ -47,7 +63,15 @@ module.exports = {
     }
 
     modelRent.returnBook(data, id)
-      .then(result => res.json(result))
+      .then(result => {
+        console.log(result)
+        return modelRent.getOneTransaction(id)
+      })
+      .then(result => {
+        console.log(result)
+        modelBooks.setStatus(result.id_book, 1)
+        res.json(result)
+      })
       .catch(err => console.log(err))
   },
   deleteData: (req, res) => {

@@ -12,6 +12,28 @@ module.exports = {
       })
     })
   },
+  getOneTransaction: (id) => {
+    return new Promise((resolve, reject) => {
+      conn.query('SELECT * FROM transaction WHERE id =?', id, (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(err)
+        }
+      })
+    })
+  },
+  getHistory: (id) => {
+    return new Promise((resolve, reject) => {
+      conn.query('SELECT books.title, books.id_status, transaction.rent_at, transaction.return_at FROM transaction JOIN books ON books.id_book = transaction.id_book WHERE ?', [id], (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(err)
+        }
+      })
+    })
+  },
   getBorrowedBook: (data) => {
     return new Promise((resolve, reject) => {
       conn.query('SELECT * FROM transaction WHERE id_book =? AND return_at IS ?', [data.id_book, data.return_at], (err, result) => {
