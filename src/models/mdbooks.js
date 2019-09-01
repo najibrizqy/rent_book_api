@@ -110,7 +110,7 @@ module.exports = {
   },
   getBookByGenre: (genre) => {
     return new Promise((resolve, reject) => {
-      conn.query(`${bookListQuery}WHERE genre = ?`, genre, (err, result) => {
+      conn.query(`${bookListQuery}WHERE genre.name = ?`, genre, (err, result) => {
         if (!err) {
           resolve(result)
         } else {
