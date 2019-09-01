@@ -1,4 +1,5 @@
 const modelRent = require('../models/mdrentbook')
+const modelBooks = require('../models/mdbooks')
 
 module.exports = {
   getAll: (req, res) => {
@@ -6,19 +7,51 @@ module.exports = {
       .then(result => res.json(result))
       .catch(err => console.log(err))
   },
+  getHistory: (req, res) => {
+    const id = {
+      id_user: req.params.id
+    }
+    modelRent.getHistory(id)
+      .then(result => {
+        const msg = {
+          status: 200,
+          values: result
+        }
+        if(result.length > 0){
+          res.json(msg)
+        }else
+          res.json(404, {errMsg: "User no found."})   
+      })
+      .catch(err => console.log(err))
+  },
+  getBorrowedBook:(req, res) => {
+    const data = {
+      id_book: req.params.id,
+      return_at: null
+    }
+    modelRent.getBorrowedBook(data)
+      .then(result => {
+        const msg ={
+          status: 200,
+          values: result
+        }
+        res.json(msg) 
+      })
+      .catch(err => console.log(err))
+  },
   rentBook: (req, res) => {
     const data = {
-      id_user: req.id_user,
+      id_user: req.body.id_user,
       id_book: req.body.id_book,
       rent_at: new Date()
     }
-    const id = {
-      id_book: req.body.id_book
-    }
 
-    modelRent.rentBook(data, id)
-      .then(result => res.json(result))
-      .catch(err => res.json(err))
+    modelRent.rentBook(data)
+      .then(result => {
+        modelBooks.setStatus(data.id_book, 2)
+        res.json(result)
+      })
+      .catch(err => res.json(404, err))
   },
   returnBook: (req, res) => {
     const data = {
@@ -30,7 +63,15 @@ module.exports = {
     }
 
     modelRent.returnBook(data, id)
-      .then(result => res.json(result))
+      .then(result => {
+        console.log(result)
+        return modelRent.getOneTransaction(id)
+      })
+      .then(result => {
+        console.log(result)
+        modelBooks.setStatus(result.id_book, 1)
+        res.json(result)
+      })
       .catch(err => console.log(err))
   },
   deleteData: (req, res) => {

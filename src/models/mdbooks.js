@@ -1,4 +1,5 @@
 const conn = require('../config/db')
+let bookListQuery = `SELECT id_book, title, description, image, date_released, books.id_genre, genre.name AS genre,status.id_status, status.availability AS availability FROM books JOIN genre ON books.id_genre = genre.id_genre JOIN status on books.id_status = status.id_status `
 module.exports = {
   getAll: (queryParams) => {
     return new Promise((resolve, reject) => {
@@ -13,7 +14,7 @@ module.exports = {
       let totalPage = 0
 
       // this is query for count total book
-      let query = `SELECT COUNT(id_book) AS total FROM books_list `
+      let query = `SELECT COUNT(id_book) AS total FROM books `
 
       const searchingIsDefined = queryParams.search != undefined
       const availableIsDefined = queryParams.availability != undefined
@@ -34,7 +35,7 @@ module.exports = {
         }
 
         // this is query for combine search, sort|typesort, page|limit, and availability
-        let query = `SELECT * FROM books_list `
+        let query = bookListQuery;
 
         if (searchingIsDefined || availableIsDefined) {
           query += `WHERE `
@@ -72,7 +73,7 @@ module.exports = {
   },
   detailBook: (id) => {
     return new Promise((resolve, reject) => {
-      conn.query('SELECT * FROM books_list WHERE ?', [id], (err, result) => {
+      conn.query(`${bookListQuery}WHERE ?`, [id], (err, result) => {
         if (!err) {
           resolve(result)
         } else {
@@ -83,7 +84,7 @@ module.exports = {
   },
   getBookYears: () => {
     return new Promise((resolve, reject) => {
-      conn.query('SELECT YEAR(date_released) AS year FROM books_list GROUP BY year ORDER BY year DESC', (err, result) => {
+      conn.query('SELECT YEAR(date_released) AS year FROM books GROUP BY year ORDER BY year DESC', (err, result) => {
         if (!err) {
           const msg = {
             status : 200,
@@ -98,7 +99,7 @@ module.exports = {
   },
   getBookByYear: (year) => {
     return new Promise((resolve, reject) => {
-      conn.query(`SELECT * FROM books_list WHERE YEAR(date_released) = ${year}`, (err, result) => {
+      conn.query(`${bookListQuery}WHERE YEAR(date_released) = ${year}`, (err, result) => {
         if (!err) {
           resolve(result)
         } else {
@@ -109,7 +110,7 @@ module.exports = {
   },
   getBookByGenre: (genre) => {
     return new Promise((resolve, reject) => {
-      conn.query(`SELECT * FROM books_list WHERE genre = ?`, genre, (err, result) => {
+      conn.query(`${bookListQuery}WHERE genre = ?`, genre, (err, result) => {
         if (!err) {
           resolve(result)
         } else {
@@ -166,6 +167,16 @@ module.exports = {
         }
       })
     })
-  }
-
+  },
+  setStatus: (id, status) => {
+    return new Promise((resolve, reject) => {
+      conn.query('UPDATE books SET id_status =? WHERE id_book =?', [status, id], (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(err)
+        }
+      })
+    })
+  }  
 }

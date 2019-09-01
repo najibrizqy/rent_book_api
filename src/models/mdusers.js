@@ -1,5 +1,4 @@
 const conn = require('../config/db')
-const crypto = require('crypto')
 
 module.exports = {
   getAll: (query) => {
@@ -13,27 +12,35 @@ module.exports = {
       })
     })
   },
+  getUserById: (id) => {
+    return new Promise((resolve, reject) => {
+      conn.query('SELECT * FROM users WHERE ?', [id], (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(err)
+        }
+      })
+    })
+  },
+  getEmail: (data) => {
+    return new Promise((resolve, reject) => {
+      conn.query('SELECT * FROM users WHERE email =?', data, (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(err)
+        }
+      })
+    })
+  },
   register: (data) => {
     return new Promise((resolve, reject) => {
-      conn.query('SELECT * FROM users WHERE email =?', [data.email], (err, result) => {
-        if (result.length > 0) {
-          const msg = {
-            status: 403,
-            msg: 'Email is already in use'
-          } 
-          resolve(msg)
+      conn.query('INSERT INTO users SET ?', data, (err, result) => {
+        if (!err) {
+          resolve(result)
         } else {
-          conn.query('INSERT INTO users SET ?', data, (err, result) => {
-            if (!err) {
-              const msg = {
-                status: 200,
-                msg: 'Register success'
-              } 
-              resolve(msg)
-            } else {
-              reject(err)
-            }
-          })
+          reject(err)
         }
       })
     })
@@ -45,8 +52,8 @@ module.exports = {
           resolve(result)
         } else {
           err = {
-            status: 401,
-            err: 'Your Email or Password Incorrect.'
+            status: 404,
+            errMsg: 'Your Email or Password Incorrect.'
           }
           reject(err)
         }
