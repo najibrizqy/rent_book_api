@@ -8,10 +8,10 @@ const cors = require('cors')
 
 const Route = require('./src/routes/route')
 
-const port = process.env.SERVER_PORT || 3000
+const PORT = process.env.PORT || 3000
 
-app.listen(port, () => {
-  console.log(`Server is running on Port ${port}`)
+app.listen(PORT, () => {
+  console.log(`Server is running on Port ${PORT}`)
 })
 
 app.use(cors())
