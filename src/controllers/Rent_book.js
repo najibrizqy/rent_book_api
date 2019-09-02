@@ -58,19 +58,13 @@ module.exports = {
       return_at: new Date()
     }
 
-    const id = {
+    const id_trans = {
       id: req.params.id
     }
 
-    modelRent.returnBook(data, id)
+    modelRent.getOneTransaction(id_trans.id)
       .then(result => {
-        console.log(result)
-        return modelRent.getOneTransaction(id)
-      })
-      .then(result => {
-        console.log(result)
-        modelBooks.setStatus(result.id_book, 1)
-        res.json(result)
+          res.json(result)
       })
       .catch(err => console.log(err))
   },

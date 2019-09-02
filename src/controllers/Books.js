@@ -60,7 +60,7 @@ module.exports = {
           }
           res.json(msg)
         }else{
-          res.json((404),{status: 404, msg : "Data not found."})
+          res.json({status: 404, msg : "Data not found."})
         }
       })
       .catch(err => {
@@ -77,7 +77,7 @@ module.exports = {
           }
           res.json(msg)
         }else{
-          res.json((404),{status: 404, msg : "Data not found."})
+          res.json({status: 404, msg : "Data not found."})
         }
       })
       .catch(err => {
