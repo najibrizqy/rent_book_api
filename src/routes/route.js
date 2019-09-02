@@ -29,7 +29,7 @@ Route
   .get('/rent_book/borrowed/:id', UsersController.Auth, RentController.getBorrowedBook)
   .get('/rent_book/history/:id', UsersController.Auth, RentController.getHistory)
   .post('/rent_book', UsersController.Auth, RentController.rentBook)
-  .get('/rent_book/:id', UsersController.Auth, UsersController.verifyAdmin, RentController.returnBook)
+  .patch('/rent_book/:id', UsersController.Auth, UsersController.verifyAdmin, RentController.returnBook)
   .delete('/rent_book/:id', UsersController.Auth, UsersController.verifyAdmin, RentController.deleteData)
 
 // Route User

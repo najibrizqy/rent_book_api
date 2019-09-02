@@ -62,11 +62,15 @@ module.exports = {
       id: req.params.id
     }
 
-    modelRent.getOneTransaction(id_trans.id)
-      .then(result => {
-          res.json(result)
-      })
-      .catch(err => console.log(err))
+    modelRent.returnBook(data, id_trans)
+    .then(result => {
+      return modelRent.getOneTransaction(id_trans.id)
+    })
+    .then(result => {
+      return modelBooks.setStatus(result[0].id_book, 1)
+      .then(result => res.json(result))
+    })
+    .catch(err => console.log(err))
   },
   deleteData: (req, res) => {
     const id = {
