@@ -8,6 +8,7 @@ Route
     .get('/', Auth.authLogin, RentController.getAll)
     .get('/borrowed/:id', Auth.authLogin, RentController.getBorrowedBook)
     .get('/history/:id', Auth.authLogin, RentController.getHistory)
+    .post('/request', Auth.authLogin, RentController.requestBook)
     .post('/', Auth.authLogin, RentController.rentBook)
     .patch('/:id', Auth.authLogin, Auth.verifyAdmin, RentController.returnBook)
     .delete('/:id', Auth.authLogin, Auth.verifyAdmin, RentController.deleteData)

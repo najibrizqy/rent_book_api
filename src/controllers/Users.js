@@ -2,6 +2,7 @@ require('dotenv').config()
 
 // import package
 const modelUsers = require('../models/mdusers')
+const jwt = require('jsonwebtoken')
 const crypto = require('crypto')
 const joi = require('@hapi/joi')
 

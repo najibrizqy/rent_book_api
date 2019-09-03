@@ -49,6 +49,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       conn.query('SELECT * FROM users WHERE email =?', [data.email], (err, result) => {
         if (!err && result.length > 0) {
+          console.log("ok")
           resolve(result)
         } else {
           err = {

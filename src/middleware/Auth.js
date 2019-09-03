@@ -25,6 +25,17 @@ module.exports = {
         }
     },
     verifyAdmin: (req, res, next) => {
-        if (req.level === 'admin') { next() } else { res.sendStatus(403) }
+        if (req.level === 'admin') {
+            next() 
+        } else { res.sendStatus(403) }
+    },
+    addBook: (req, res, next) => {
+        if (req.level === 'admin') {
+            req.id_status = 1
+            next()
+        } else {
+            req.id_status = 3
+            next()
+        }
     }
 }

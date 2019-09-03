@@ -11,7 +11,8 @@ Route
     .get('/year/:year', BooksController.getBookByYear)
     .get('/genre/:genre', BooksController.getBookByGenre)
     .get('/:id', BooksController.detailBook)
-    .post('', Auth.authLogin, Auth.verifyAdmin, Multer.multerUploads, BooksController.insertBook)
+    .post('', Auth.authLogin, Auth.addBook, Multer.multerUploads, BooksController.insertBook)
+    .patch('/confirm/:id', Auth.authLogin, Auth.verifyAdmin, BooksController.setStatus)
     .patch('/:id', Auth.authLogin, Auth.verifyAdmin, Multer.multerUploads, BooksController.updateBook)
     .delete('/:id',  Auth.authLogin, Auth.verifyAdmin, BooksController.deleteBook)
 

@@ -1,11 +1,11 @@
 const conn = require('../config/db')
-let bookListQuery = `SELECT id_book, title, description, image, date_released, books.id_genre, genre.name AS genre,status.id_status, status.availability AS availability FROM books JOIN genre ON books.id_genre = genre.id_genre JOIN status on books.id_status = status.id_status `
+let bookListQuery = `SELECT id_book, title, description, image, date_released, books.id_genre, genre.name AS genre,status.id_status, status.availability AS availability FROM books JOIN genre ON books.id_genre = genre.id_genre JOIN status on books.id_status = status.id_status WHERE `
 module.exports = {
   getAll: (queryParams) => {
     return new Promise((resolve, reject) => {
       const sortBy = queryParams.sort || 'id_book'
       const typeSort = queryParams.type || 'asc'
-      const searching = queryParams.search || ''
+      const searching = queryParams.search
       const paging = parseInt(queryParams.page) || 1
       const limitation = queryParams.limit || 10
       const startLimit = (paging > 1) ? (paging * limitation) - limitation : 0
@@ -14,16 +14,17 @@ module.exports = {
       let totalPage = 0
 
       // this is query for count total book
-      let query = `SELECT COUNT(id_book) AS total FROM books `
+      let query = `SELECT COUNT(id_book) AS total FROM books WHERE `
 
       const searchingIsDefined = queryParams.search != undefined
       const availableIsDefined = queryParams.availability != undefined
 
       if (searchingIsDefined || availableIsDefined) {
-        query += `WHERE `
         query += searchingIsDefined ? `title LIKE '%${searching}%' ` : ``
         query += searchingIsDefined && availableIsDefined ? `AND ` : ``
-        query += availableIsDefined ? `availability = '${availability}' ` : ``
+        query += availableIsDefined ? `id_status = '${availability}' ` : `AND id_status != 3`
+      }else{
+        query += `id_status != 3`
       }
 
       conn.query(query, (err, rows) => {
@@ -38,12 +39,14 @@ module.exports = {
         let query = bookListQuery;
 
         if (searchingIsDefined || availableIsDefined) {
-          query += `WHERE `
           query += searchingIsDefined ? `title LIKE '%${searching}%' ` : ``
           query += searchingIsDefined && availableIsDefined ? `AND ` : ``
-          query += availableIsDefined ? `availability = '${availability}' ` : ``
+          query += availableIsDefined ? `books.id_status = '${availability}' ` : `AND books.id_status != 3`
+        }else{
+          query += `books.id_status != 3 `
         }
-          query += `ORDER BY ${sortBy} ${typeSort} `
+        
+        query += `ORDER BY ${sortBy} ${typeSort} `
 
         conn.query(query + `LIMIT ${limitation} OFFSET ${startLimit}`, (err, result) => {
           if (!err) {
@@ -73,7 +76,7 @@ module.exports = {
   },
   detailBook: (id) => {
     return new Promise((resolve, reject) => {
-      conn.query(`${bookListQuery}WHERE ?`, [id], (err, result) => {
+      conn.query(`${bookListQuery} ?`, [id], (err, result) => {
         if (!err) {
           resolve(result)
         } else {

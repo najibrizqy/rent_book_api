@@ -45,6 +45,35 @@ module.exports = {
       })
     })
   },
+  requestBook: (data) => {
+    return new Promise((resolve, reject) => {
+      conn.query('SELECT * FROM books WHERE id_book =?', data.id_book, (err, result) => {
+        console.log(result)
+        if (result.length == 0) {
+          const msg = {
+            errMsg: 'Book not found.'
+          }
+          reject(msg)
+        }else{
+          const getStatus = result[0].id_status
+          if (!err && getStatus == 1) {
+            conn.query('INSERT INTO transaction SET ?', data, (err, result) => {
+              if (!err) {
+                resolve(result)
+              } else {
+                reject(err)
+              }
+            })
+          } else {
+            const msg = {
+              errMsg: 'Book is not available.'
+            }
+            reject(msg)
+          }
+        }
+      })
+    })
+  },
   rentBook: (data) => {
     return new Promise((resolve, reject) => {
       conn.query('SELECT * FROM users WHERE id_user =?', data.id_user, (err, result) => {

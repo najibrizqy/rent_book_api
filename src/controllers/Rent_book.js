@@ -39,11 +39,25 @@ module.exports = {
       })
       .catch(err => console.log(err))
   },
+  requestBook: (req, res) => {
+    const data = {
+      id_user: req.id_user,
+      id_book: req.body.id_book
+    }
+
+    modelRent.requestBook(data)
+      .then(result => {
+        modelBooks.setStatus(data.id_book, 4)
+        res.json(result)
+      })
+      .catch(err => res.json(404, err))
+  },
   rentBook: (req, res) => {
     const data = {
       id_user: req.body.id_user,
       id_book: req.body.id_book,
-      rent_at: new Date()
+      rent_at: new Date(),
+      isConfirm: 1
     }
 
     modelRent.rentBook(data)

@@ -3,7 +3,6 @@ const multer = require('../middleware/multer')
 const cloudinary = require('../config/cloudinaryConfig')
 
 module.exports = {
-  // get all data books
   getAll: (req, res) => {
     const queryParams = {
       search: req.query.search,
@@ -24,7 +23,6 @@ module.exports = {
         console.log(err)
       })
   },
-  // get detail book
   detailBook: (req, res) => {
     const id = {
       id_book: req.params.id
@@ -94,6 +92,7 @@ module.exports = {
     if(imageData.image) {
       const file = multer.dataUri(req).content
       cloudinary.uploader.upload(file)
+
       .then((result) => {
         const data = {
           title: req.body.title,
@@ -101,7 +100,7 @@ module.exports = {
           image: result.url,
           date_released: req.body.date_released,
           id_genre: req.body.id_genre,
-          id_status: 1,
+          id_status: req.id_status,
           created_at: new Date(),
           updated_at: new Date()
         }
@@ -123,23 +122,40 @@ module.exports = {
     }
   },
   updateBook: (req, res) => {
-    const data = {
-      title: req.body.title,
-      description: req.body.description,
-      image: req.body.image,
-      date_released: req.body.date_released,
-      id_genre: req.body.id_genre,
-      id_status: req.body.id_status,
-      updated_at: new Date()
+    const imageData = {
+      image: req.file
     }
 
-    const id = {
-      id_book: req.params.id
-    }
+    if(imageData.image) {
+      const file = multer.dataUri(req).content
+      cloudinary.uploader.upload(file)
 
-    modelBooks.updateBook(data, id)
-      .then(msg => res.json(msg))
-      .catch(err => console.log(err))
+      .then((result) => {
+        const data = {
+          title: req.body.title,
+          description: req.body.description,
+          image: result.url,
+          date_released: req.body.date_released,
+          id_genre: req.body.id_genre,
+          id_status: req.body.id_status,
+          updated_at: new Date()
+        }
+    
+        const id = {
+          id_book: req.params.id
+        }
+
+        modelBooks.updateBook(data, id)
+          .then(msg => res.json(msg))
+          .catch(err => console.log(err))
+      })
+      .catch((err) => res.status(400).json({
+          message: 'someting went wrong while processing your request',
+          data: {
+              err
+          }
+      }))
+    }
   },
   deleteBook: (req, res) => {
     const id = {
@@ -151,6 +167,19 @@ module.exports = {
           res.json((404),{status : 404, msg : "Id not Found."})
         }else
         res.json({status : 200, msg: "The book has been deleted."})
+      })
+      .catch(err => console.log(err))
+  },
+  setStatus: (req, res) => {
+    const data = {
+      id_book: req.params.id
+    }
+    modelBooks.setStatus(data.id_book, 2)
+      .then(result => {
+        if(result.affectedRows == 0)
+          res.json((404),{status : 404, msg : "Id not Found."})
+        else
+          res.json({status : 200, msg: "The book has been confirm."})
       })
       .catch(err => console.log(err))
   }
