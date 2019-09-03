@@ -25,7 +25,7 @@ module.exports = {
   },
   getHistory: (id) => {
     return new Promise((resolve, reject) => {
-      conn.query('SELECT books.title, books.id_status, transaction.rent_at, transaction.return_at FROM transaction JOIN books ON books.id_book = transaction.id_book WHERE ?', [id], (err, result) => {
+      conn.query('SELECT transaction.id_book, transaction.rent_at, transaction.return_at, books.title, books.id_status FROM transaction JOIN books ON books.id_book = transaction.id_book WHERE ? ORDER BY return_at', [id], (err, result) => {
         if (!err) {
           resolve(result)
         } else {
