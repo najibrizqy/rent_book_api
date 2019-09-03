@@ -1,4 +1,6 @@
 const modelBooks = require('../models/mdbooks')
+const multer = require('../middleware/multer')
+const cloudinary = require('../config/cloudinaryConfig')
 
 module.exports = {
   // get all data books
@@ -85,24 +87,40 @@ module.exports = {
       })
   },
   insertBook: (req, res) => {
-    const data = {
-      title: req.body.title,
-      description: req.body.description,
-      image: req.body.image,
-      date_released: req.body.date_released,
-      id_genre: req.body.id_genre,
-      id_status: 1,
-      created_at: new Date(),
-      updated_at: new Date()
+    const imageData = {
+      image: req.file
     }
 
-    modelBooks.insertBook(data)
-      .then(msg => res.json(msg))
-      .catch(err => {
-        console.log(err)
-        if(err.errno == 1048)
-          res.json((400),{msg : "There are fields that have not been filled."})
+    if(imageData.image) {
+      const file = multer.dataUri(req).content
+      cloudinary.uploader.upload(file)
+      .then((result) => {
+        const data = {
+          title: req.body.title,
+          description: req.body.description,
+          image: result.url,
+          date_released: req.body.date_released,
+          id_genre: req.body.id_genre,
+          id_status: 1,
+          created_at: new Date(),
+          updated_at: new Date()
+        }
+    
+        modelBooks.insertBook(data)
+          .then(msg => res.json(msg))
+          .catch(err => {
+            console.log(err)
+            if(err.errno == 1048)
+              res.json((400),{msg : "There are fields that have not been filled."})
+          })
       })
+      .catch((err) => res.status(400).json({
+          message: 'someting went wrong while processing your request',
+          data: {
+              err
+          }
+      }))
+    }
   },
   updateBook: (req, res) => {
     const data = {

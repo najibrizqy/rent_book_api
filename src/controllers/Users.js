@@ -3,7 +3,6 @@ require('dotenv').config()
 // import package
 const modelUsers = require('../models/mdusers')
 const crypto = require('crypto')
-const jwt = require('jsonwebtoken')
 const joi = require('@hapi/joi')
 
 // this is function to validate form
@@ -139,29 +138,4 @@ module.exports = {
       .then(result => res.json(result))
       .catch(err => console.log(err))
   },
-  // Midleware to check user token
-  Auth: (req, res, next) => {
-    try {
-      const header = req.headers['authorization']
-      const bearer = header.split(' ')
-      const token = bearer[1]
-      jwt.verify(token, process.env.SECRET_KEY, (err, AuthData) => {
-        if (err) {
-          res.json((403), { msg: 'Invalid Token!' })
-        } else {
-          req.id_user = AuthData.user.id
-          req.username = AuthData.user.username
-          req.full_name = AuthData.user.full_name
-          req.email = AuthData.user.email
-          req.level = AuthData.user.level
-          next()
-        }
-      })
-    } catch (err) {
-      res.json((403), { msg: 'Login first' })
-    }
-  },
-  verifyAdmin: (req, res, next) => {
-    if (req.level === 'admin') { next() } else { res.sendStatus(403) }
-  }
 }
