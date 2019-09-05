@@ -32,9 +32,11 @@ module.exports = {
     addBook: (req, res, next) => {
         if (req.level === 'admin') {
             req.id_status = 1
+            req.addBy = "Admin"
             next()
         } else {
             req.id_status = 3
+            req.addBy = req.username
             next()
         }
     }

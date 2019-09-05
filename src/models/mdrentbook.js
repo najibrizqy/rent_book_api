@@ -45,6 +45,17 @@ module.exports = {
       })
     })
   },
+  confirmRequest: (data, id) => {
+    return new Promise((resolve, reject) => {
+      conn.query('UPDATE transaction SET ? WHERE ?', [data, id], (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(err)
+        }
+      })
+    })
+  },
   requestBook: (data) => {
     return new Promise((resolve, reject) => {
       conn.query('SELECT * FROM books WHERE id_book =?', data.id_book, (err, result) => {

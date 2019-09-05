@@ -1,5 +1,5 @@
 const conn = require('../config/db')
-let bookListQuery = `SELECT id_book, title, description, image, date_released, books.id_genre, genre.name AS genre,status.id_status, status.availability AS availability FROM books JOIN genre ON books.id_genre = genre.id_genre JOIN status on books.id_status = status.id_status WHERE `
+let bookListQuery = `SELECT id_book, title, description, image, date_released, addBy, books.id_genre, genre.name AS genre,status.id_status, status.availability AS availability FROM books JOIN genre ON books.id_genre = genre.id_genre JOIN status on books.id_status = status.id_status WHERE `
 module.exports = {
   getAll: (queryParams) => {
     return new Promise((resolve, reject) => {
@@ -87,7 +87,7 @@ module.exports = {
   },
   getBooksDonate: () => {
     return new Promise((resolve, reject) => {
-      conn.query('SELECT * FROM books where id_status = 3', (err, result) => {
+      conn.query(`${bookListQuery}books.id_status = 3`, (err, result) => {
         if (!err) {
           resolve(result)
         } else {
@@ -98,7 +98,7 @@ module.exports = {
   },
   getBooksOrder: () => {
     return new Promise((resolve, reject) => {
-      conn.query('SELECT * FROM books where id_status = 4', (err, result) => {
+      conn.query(`SELECT id, transaction.id_book, books.title, books.image, users.id_user, users.username, users.full_name FROM transaction JOIN books ON transaction.id_book = books.id_book JOIN users ON transaction.id_user = users.id_user WHERE isConfirm = 0`, (err, result) => {
         if (!err) {
           resolve(result)
         } else {

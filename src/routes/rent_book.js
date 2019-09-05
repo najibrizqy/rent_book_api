@@ -10,6 +10,7 @@ Route
     .get('/history/:id', Auth.authLogin, RentController.getHistory)
     .post('/request', Auth.authLogin, RentController.requestBook)
     .post('/', Auth.authLogin, RentController.rentBook)
+    .patch('/confirm/:id', Auth.authLogin, Auth.verifyAdmin, RentController.confirmRequest)
     .patch('/:id', Auth.authLogin, Auth.verifyAdmin, RentController.returnBook)
     .delete('/:id', Auth.authLogin, Auth.verifyAdmin, RentController.deleteData)
 

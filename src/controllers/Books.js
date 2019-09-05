@@ -131,6 +131,7 @@ module.exports = {
           date_released: req.body.date_released,
           id_genre: req.body.id_genre,
           id_status: req.id_status,
+          addBy: req.addBy,
           created_at: new Date(),
           updated_at: new Date()
         }
@@ -220,9 +221,10 @@ module.exports = {
   },
   setStatus: (req, res) => {
     const data = {
-      id_book: req.params.id
+      id_book: req.params.id,
+      id_status: req.body.id_status
     }
-    modelBooks.setStatus(data.id_book, 2)
+    modelBooks.setStatus(data.id_book, data.id_status)
       .then(result => {
         if(result.affectedRows == 0)
           res.json((404),{status : 404, msg : "Id not Found."})
