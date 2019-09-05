@@ -7,6 +7,8 @@ const Multer = require('../middleware/Multer')
 
 Route
     .get('/', BooksController.getAll)
+    .get('/donate/', Auth.authLogin, Auth.verifyAdmin, BooksController.getBooksDonate)
+    .get('/order/', Auth.authLogin, Auth.verifyAdmin, BooksController.getBooksOrder)
     .get('/year/', BooksController.getBookYears)
     .get('/year/:year', BooksController.getBookByYear)
     .get('/genre/:genre', BooksController.getBookByGenre)

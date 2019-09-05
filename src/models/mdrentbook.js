@@ -92,7 +92,7 @@ module.exports = {
               reject(msg)
             }else{
               const getStatus = result[0].id_status
-              if (!err && getStatus == 1) {
+              if (!err && getStatus == 1 || getStatus == 4) {
                 conn.query('INSERT INTO transaction SET ?', data, (err, result) => {
                   if (!err) {
                     resolve(result)

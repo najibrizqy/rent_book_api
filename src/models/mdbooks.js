@@ -41,7 +41,7 @@ module.exports = {
         if (searchingIsDefined || availableIsDefined) {
           query += searchingIsDefined ? `title LIKE '%${searching}%' ` : ``
           query += searchingIsDefined && availableIsDefined ? `AND ` : ``
-          query += availableIsDefined ? `books.id_status = '${availability}' ` : `AND books.id_status != 3`
+          query += availableIsDefined ? `books.id_status = '${availability}' ` : `AND books.id_status != 3 `
         }else{
           query += `books.id_status != 3 `
         }
@@ -85,6 +85,28 @@ module.exports = {
       })
     })
   },
+  getBooksDonate: () => {
+    return new Promise((resolve, reject) => {
+      conn.query('SELECT * FROM books where id_status = 3', (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+            reject(err) 
+        }
+      })
+    })
+  },
+  getBooksOrder: () => {
+    return new Promise((resolve, reject) => {
+      conn.query('SELECT * FROM books where id_status = 4', (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+            reject(err) 
+        }
+      })
+    })
+  },
   getBookYears: () => {
     return new Promise((resolve, reject) => {
       conn.query('SELECT YEAR(date_released) AS year FROM books GROUP BY year ORDER BY year DESC', (err, result) => {
@@ -102,7 +124,7 @@ module.exports = {
   },
   getBookByYear: (year) => {
     return new Promise((resolve, reject) => {
-      conn.query(`${bookListQuery}WHERE YEAR(date_released) = ${year}`, (err, result) => {
+      conn.query(`${bookListQuery} YEAR(date_released) = ${year}`, (err, result) => {
         if (!err) {
           resolve(result)
         } else {
@@ -113,7 +135,7 @@ module.exports = {
   },
   getBookByGenre: (genre) => {
     return new Promise((resolve, reject) => {
-      conn.query(`${bookListQuery}WHERE genre.name = ?`, genre, (err, result) => {
+      conn.query(`${bookListQuery} genre.name = ?`, genre, (err, result) => {
         if (!err) {
           resolve(result)
         } else {

@@ -41,6 +41,36 @@ module.exports = {
       })
       .catch(err => console.log(err))
   },
+  getBooksDonate: (req, res) => {
+    modelBooks.getBooksDonate()
+    .then(response => {
+      if(response.length > 0){
+        const msg = {
+          status: 200,
+          values: response
+        }
+        res.json(msg)
+      }else{
+        res.json((404),{status: 404, msg : "empty."})
+      }
+    })
+    .catch(err => console.log(err))
+  },
+  getBooksOrder: (req, res) => {
+    modelBooks.getBooksOrder()
+      .then(response => {
+        if(response.length > 0){
+          const msg = {
+            status: 200,
+            values: response
+          }
+          res.json(msg)
+        }else{
+          res.json((404),{status: 404, msg : "empty."})
+        }
+      })
+      .catch(err => console.log(err))
+  },
   getBookYears: (req, res) => {
     modelBooks.getBookYears()
       .then(msg => {
@@ -155,6 +185,24 @@ module.exports = {
               err
           }
       }))
+    }else{
+      const data = {
+        title: req.body.title,
+        description: req.body.description,
+        image: req.body.image,
+        date_released: req.body.date_released,
+        id_genre: req.body.id_genre,
+        id_status: req.body.id_status,
+        updated_at: new Date()
+      }
+  
+      const id = {
+        id_book: req.params.id
+      }
+
+      modelBooks.updateBook(data, id)
+        .then(msg => res.json(msg))
+        .catch(err => console.log(err))
     }
   },
   deleteBook: (req, res) => {
