@@ -55,15 +55,11 @@ SECRET_KEY= 'secretkey'
 
    * **PATCH**
      * `/books/:id` (Update book by id)
-        * ``` { "title": "Kata", "description": "Book is book", "date_released": 2019-08-01, "id_genre": 1, "id_status": 1 } ```
-     * `/genre/:id` (Update genre by id)
-        * ``` { "name": "Adventure" } ```
-     * `/rent_book/:id` (Return Book)
+        * ``` { "title": "Kata", "description": "this is description", "image":"image(file)", "date_released": 2019-08-01, "id_genre": 1 } ``` (Body => form-data, need admin previlege)
+     * `books/confirm/:id` (Confirm donate books by admin, need admin privelege)
 
    * **DELETE**
      * `/books/:id` (Delete book by id)
-     * `/genre/:id` (Delete genre by id)
-     * `/rent_book/:id` (Delete transaction by id)
      
 ### 2. Genre
   * **GET**
