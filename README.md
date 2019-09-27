@@ -37,14 +37,15 @@ SECRET_KEY= 'secretkey'
 ```
 
 ## End Point
-### Books
-**1. GET**
-* `/books`
-* `/books?search=aroma&sort=title&type=DESC&limit=5&page=1`
-* `/books/:id` (Get book by id)
-* `/genre`
-* `/genre?sort=name&type=DESC`
-* `/rent_book/` 
+
+### 1. Books
+  * **1. GET**
+    * `/books`
+    * `/books?search=aroma&sort=title&type=DESC&limit=5&page=1`
+    * `/books/:id` (Get book by id)
+    * `/genre`
+    * `/genre?sort=name&type=DESC`
+    * `/rent_book/` 
 
 
 **2. POST**
