@@ -1,15 +1,22 @@
 const express = require('express')
 const Route = express.Router()
 
-const UsersController = require('../controllers/Users')
-const Auth = require('../middleware/Auth')
+const {
+    getAll,
+    getProfile,
+    getUserById,
+    login,
+    register,
+    deleteUsers
+} = require('../controllers/Users')
+const {authLogin, verifyAdmin} = require('../middleware/Auth')
 
 Route
-    .get('/', Auth.authLogin, Auth.verifyAdmin, UsersController.getAll)
-    .get('/profile', Auth.authLogin, UsersController.getProfile)
-    .get('/:id', Auth.authLogin, UsersController.getUserById)
-    .post('/login', UsersController.login)
-    .post('/register', UsersController.register)
-    .delete('/:id', Auth.authLogin, Auth.verifyAdmin, UsersController.deleteUsers)
+    .get('/', authLogin, verifyAdmin, getAll)
+    .get('/profile', authLogin, getProfile)
+    .get('/:id', authLogin, getUserById)
+    .post('/login', login)
+    .post('/register', register)
+    .delete('/:id', authLogin, verifyAdmin, deleteUsers)
 
 module.exports = Route

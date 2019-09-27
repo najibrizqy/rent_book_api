@@ -1,13 +1,18 @@
 const express = require('express')
 const Route = express.Router()
 
-const GenreController = require('../controllers/Genre')
-const Auth = require('../middleware/Auth')
+const {
+    getAll,
+    insertGenre,
+    updateGenre,
+    deleteGenre
+} = require('../controllers/Genre')
+const {authLogin, verifyAdmin} = require('../middleware/Auth')
 
 Route
-    .get('/', GenreController.getAll)
-    .post('/', Auth.authLogin, Auth.verifyAdmin, GenreController.insertGenre)
-    .patch('/:id', Auth.authLogin, Auth.verifyAdmin, GenreController.updateGenre)
-    .delete('/:id', Auth.authLogin, Auth.verifyAdmin, GenreController.deleteGenre)
+    .get('/', getAll)
+    .post('/', authLogin, verifyAdmin, insertGenre)
+    .patch('/:id', authLogin, verifyAdmin, updateGenre)
+    .delete('/:id', authLogin, verifyAdmin, deleteGenre)
 
 module.exports = Route
