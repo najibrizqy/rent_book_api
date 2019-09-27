@@ -4,7 +4,7 @@
 
 Rent Book App is a simple library application specially for backend only. Built with NodeJs using the ExpressJs Framework.
 Express.js is a web application framework for Node.js. [More about Express](https://en.wikipedia.org/wiki/Express.js)
-# Built With
+## Built With
 [![Express.js](https://img.shields.io/badge/Express.js-4.x-orange.svg?style=rounded-square)](https://expressjs.com/en/starter/installing.html)
 [![Node.js](https://img.shields.io/badge/Node.js-v.10.16-green.svg?style=rounded-square)](https://nodejs.org/)
 
@@ -37,6 +37,7 @@ SECRET_KEY= 'secretkey'
 ```
 
 ## End Point
+### Books
 **1. GET**
 * `/books`
 * `/books?search=aroma&sort=title&type=DESC&limit=5&page=1`
