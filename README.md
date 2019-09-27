@@ -39,7 +39,7 @@ SECRET_KEY= 'secretkey'
 ## End Point
 
 ### 1. Books
-  * **1. GET**
+  * **GET**
     * `/books`
     * `/books?search=aroma&sort=title&type=DESC&limit=5&page=1`
     * `/books/:id` (Get book by id)
@@ -48,7 +48,7 @@ SECRET_KEY= 'secretkey'
     * `/rent_book/` 
 
 
-  * **2. POST**
+  * **POST**
     * `/books`
       * ``` { "title": "Kata", "description": "Book is book", "date_released": 2019-08-01, "id_genre": 1, "id_status": 1 } ```
 
@@ -58,14 +58,36 @@ SECRET_KEY= 'secretkey'
     * `/rent_book` (Rent/Borrow Book)
        * ``` { "id_book": "2" } ```
 
-   * **3. PATCH**
+   * **PATCH**
      * `/books/:id` (Update book by id)
         * ``` { "title": "Kata", "description": "Book is book", "date_released": 2019-08-01, "id_genre": 1, "id_status": 1 } ```
      * `/genre/:id` (Update genre by id)
         * ``` { "name": "Adventure" } ```
      * `/rent_book/:id` (Return Book)
 
-   * **4. DELETE**
-    * `/books/:id` (Delete book by id)
-    * `/genre/:id` (Delete genre by id)
-    * `/rent_book/:id` (Delete transaction by id)
+   * **DELETE**
+     * `/books/:id` (Delete book by id)
+     * `/genre/:id` (Delete genre by id)
+     * `/rent_book/:id` (Delete transaction by id)
+     
+### 2. Genre
+  * **GET**
+    * `/books`
+    * `/books?search=aroma&sort=title&type=DESC&limit=5&page=1`
+    * `/books/:id` (Get book by id)
+    * `/genre`
+    * `/genre?sort=name&type=DESC`
+    * `/rent_book/` 
+
+
+  * **POST**
+    * `/genre`
+       * ``` { "name": "Horror" } ```
+
+   * **PATCH**
+     * `/genre/:id` (Update genre by id)
+        * ``` { "name": "Adventure" } ```
+
+   * **DELETE**
+     * `/genre/:id` (Delete genre by id)
+
