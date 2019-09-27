@@ -48,24 +48,24 @@ SECRET_KEY= 'secretkey'
     * `/rent_book/` 
 
 
-**2. POST**
-* `/books`
-   * ``` { "title": "Kata", "description": "Book is book", "date_released": 2019-08-01, "id_genre": 1, "id_status": 1 } ```
+  * **2. POST**
+    * `/books`
+      * ``` { "title": "Kata", "description": "Book is book", "date_released": 2019-08-01, "id_genre": 1, "id_status": 1 } ```
 
-* `/genre`
-    * ``` { "name": "Horror" } ```
+    * `/genre`
+       * ``` { "name": "Horror" } ```
 
-* `/rent_book` (Rent/Borrow Book)
-    * ``` { "id_book": "2" } ```
+    * `/rent_book` (Rent/Borrow Book)
+       * ``` { "id_book": "2" } ```
 
-**3. PATCH**
-* `/books/:id` (Update book by id)
-   * ``` { "title": "Kata", "description": "Book is book", "date_released": 2019-08-01, "id_genre": 1, "id_status": 1 } ```
-* `/genre/:id` (Update genre by id)
-   * ``` { "name": "Adventure" } ```
-* `/rent_book/:id` (Return Book)
+   * **3. PATCH**
+     * `/books/:id` (Update book by id)
+        * ``` { "title": "Kata", "description": "Book is book", "date_released": 2019-08-01, "id_genre": 1, "id_status": 1 } ```
+     * `/genre/:id` (Update genre by id)
+        * ``` { "name": "Adventure" } ```
+     * `/rent_book/:id` (Return Book)
 
-**4. DELETE**
-* `/books/:id` (Delete book by id)
-* `/genre/:id` (Delete genre by id)
-* `/rent_book/:id` (Delete transaction by id)
+   * **4. DELETE**
+    * `/books/:id` (Delete book by id)
+    * `/genre/:id` (Delete genre by id)
+    * `/rent_book/:id` (Delete transaction by id)
