@@ -43,20 +43,15 @@ SECRET_KEY= 'secretkey'
     * `/books`
     * `/books?search=aroma&sort=title&type=DESC&limit=5&page=1`
     * `/books/:id` (Get book by id)
-    * `/genre`
-    * `/genre?sort=name&type=DESC`
-    * `/rent_book/` 
-
+    * `/books/year` (Get year of books)
+    * `/books/year/:year` (Get books by year)
+    * `/books/genre/:genre` (Get books by genre)
+    * `/books/donate` (Get donate books by user, need admin previlege)
+    * `/books/order` (Get ordered books by user, need admin previlege)
 
   * **POST**
     * `/books`
-      * ``` { "title": "Kata", "description": "Book is book", "date_released": 2019-08-01, "id_genre": 1, "id_status": 1 } ```
-
-    * `/genre`
-       * ``` { "name": "Horror" } ```
-
-    * `/rent_book` (Rent/Borrow Book)
-       * ``` { "id_book": "2" } ```
+      * ``` { "title": "Kata", "description": "this is description", "image":"image(file)", "date_released": 2019-08-01, "id_genre": 1 } ``` (Body => form-data)
 
    * **PATCH**
      * `/books/:id` (Update book by id)
