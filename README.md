@@ -53,13 +53,13 @@ SECRET_KEY= 'secretkey'
     * `/books`
       * ``` { "title": "Kata", "description": "this is description", "image":"image(file)", "date_released": 2019-08-01, "id_genre": 1 } ``` (Body => form-data)
 
-   * **PATCH**
-     * `/books/:id` (Update book by id)
-        * ``` { "title": "Kata", "description": "this is description", "image":"image(file)", "date_released": 2019-08-01, "id_genre": 1 } ``` (Body => form-data, need admin previlege)
-     * `books/confirm/:id` (Confirm donate books by admin, need admin privelege)
+  * **PATCH**
+    * `/books/:id` (Update book by id)
+       * ``` { "title": "Kata", "description": "this is description", "image":"image(file)", "date_released": 2019-08-01, "id_genre": 1 } ``` (Body => form-data, need admin previlege)
+    * `books/confirm/:id` (Confirm donate books by admin, need admin privelege)
 
-   * **DELETE**
-     * `/books/:id` (Delete book by id)
+  * **DELETE**
+    * `/books/:id` (Delete book by id)
      
 ### 2. Genre
   * **GET**
@@ -68,15 +68,15 @@ SECRET_KEY= 'secretkey'
 
 
   * **POST**
-    * `/genre`
-       * ``` { "name": "Horror" } ``` (need admin privelege)
+    * `/genre` (need admin privelege)
+       * ``` { "name": "Horror" } ``` 
 
-   * **PATCH**
-     * `/genre/:id` (Update genre by id, need admin privelege)
-        * ``` { "name": "Adventure" } ```
+  * **PATCH**
+    * `/genre/:id` (Update genre by id, need admin privelege)
+       * ``` { "name": "Adventure" } ```
 
-   * **DELETE**
-     * `/genre/:id` (Delete genre by id, need admin privelege)
+  * **DELETE**
+    * `/genre/:id` (Delete genre by id, need admin privelege)
      
 ### 3. Rent Books
   * **GET**
@@ -86,13 +86,15 @@ SECRET_KEY= 'secretkey'
 
 
   * **POST**
-    * `/genre`
-       * ``` { "name": "Horror" } ``` (need admin privelege)
+    * `/rent_book`
+       * ``` { "id_book": "2" } ```
+    * `/rent_book/request` (rent book by user)
+       * ``` { "id_book": "2", "id_user": "8" } ```
 
-   * **PATCH**
-     * `/genre/:id` (Update genre by id, need admin privelege)
-        * ``` { "name": "Adventure" } ```
+  * **PATCH**
+    * `/rent_book/:id` (return book by admin, need admin privelege)
+    * `/rent_book/confirm/:id` (confirm ordered book, need admin privelege)
 
-   * **DELETE**
-     * `/genre/:id` (Delete genre by id, need admin privelege)
+  * **DELETE**
+    * `/rent_book/:id` (Delete data transaction by id, need admin privelege)
 
