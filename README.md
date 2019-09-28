@@ -76,5 +76,23 @@ SECRET_KEY= 'secretkey'
         * ``` { "name": "Adventure" } ```
 
    * **DELETE**
-     * `/genre/:id` (Delete genre by id) (need admin privelege)
+     * `/genre/:id` (Delete genre by id, need admin privelege)
+     
+### 3. Rent Books
+  * **GET**
+    * `/rent_book`
+    * `/rent_book/borrowed/:id` (get borrowed book by id_book)
+    * `/rent_book/history/:id` (get history rent book user by id_user)
+
+
+  * **POST**
+    * `/genre`
+       * ``` { "name": "Horror" } ``` (need admin privelege)
+
+   * **PATCH**
+     * `/genre/:id` (Update genre by id, need admin privelege)
+        * ``` { "name": "Adventure" } ```
+
+   * **DELETE**
+     * `/genre/:id` (Delete genre by id, need admin privelege)
 
