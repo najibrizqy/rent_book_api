@@ -63,22 +63,18 @@ SECRET_KEY= 'secretkey'
      
 ### 2. Genre
   * **GET**
-    * `/books`
-    * `/books?search=aroma&sort=title&type=DESC&limit=5&page=1`
-    * `/books/:id` (Get book by id)
     * `/genre`
     * `/genre?sort=name&type=DESC`
-    * `/rent_book/` 
 
 
   * **POST**
     * `/genre`
-       * ``` { "name": "Horror" } ```
+       * ``` { "name": "Horror" } ``` (need admin privelege)
 
    * **PATCH**
-     * `/genre/:id` (Update genre by id)
+     * `/genre/:id` (Update genre by id, need admin privelege)
         * ``` { "name": "Adventure" } ```
 
    * **DELETE**
-     * `/genre/:id` (Delete genre by id)
+     * `/genre/:id` (Delete genre by id) (need admin privelege)
 
