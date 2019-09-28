@@ -97,4 +97,18 @@ SECRET_KEY= 'secretkey'
 
   * **DELETE**
     * `/rent_book/:id` (Delete data transaction by id, need admin privelege)
+    
+### 4. Users
+  * **GET**
+    * `/users` (need admin privelege)
+    * `/users/:id` (get user by id)
+
+  * **POST**
+    * `/users/login` 
+       * ``` { "email": "najibrizqy", "password": "mamang123" } ``` (admin)
+    * `users/register`
+       * ``` { "username": "user", "full_name": "user full name", "email": "user@gmail.com", "password": "user password"}
+
+  * **DELETE**
+    * `/users/:id` (Delete user by id, need admin privelege)
 
