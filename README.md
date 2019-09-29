@@ -2,7 +2,7 @@
 
 
 
-Rent Book App is a simple library application specially for backend only. Built with NodeJs using the ExpressJs Framework.
+Rent Book App API is a simple library application specially for backend only. Built with NodeJs using the ExpressJs Framework.
 Express.js is a web application framework for Node.js. [More about Express](https://en.wikipedia.org/wiki/Express.js)
 ## Built With
 [![Express.js](https://img.shields.io/badge/Express.js-v.4.17.1-orange.svg?style=rounded-square)](https://expressjs.com/en/starter/installing.html)
@@ -15,6 +15,7 @@ Express.js is a web application framework for Node.js. [More about Express](http
 4. Web Server (ex. localhost)
 
 ## How to run the app ?
+1. Clone or download this repo
 1. Open app's directory in CMD or Terminal
 2. Type `npm install`
 3. Use `npm start` to start the server
