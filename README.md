@@ -15,7 +15,7 @@ Express.js is a web application framework for Node.js. [More about Express](http
 4. Web Server (ex. localhost)
 
 ## How to run the app ?
-1. Clone or download this repo
+1. Clone or download this repo `git clone https://github.com/najibrizqy136/rent_book_api`
 1. Open app's directory in CMD or Terminal
 2. Type `npm install`
 3. Use `npm start` to start the server
