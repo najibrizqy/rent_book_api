@@ -14,7 +14,7 @@ const {
     updateBook,
     deleteBook
 } = require('../controllers/Books')
-const {authLogin, verifyAdmin} = require('../middleware/Auth')
+const {authLogin, verifyAdmin, addBook} = require('../middleware/Auth')
 const {multerUploads} = require('../middleware/Multer')
 
 Route
@@ -25,7 +25,7 @@ Route
     .get('/year/:year', getBookByYear)
     .get('/genre/:genre', getBookByGenre)
     .get('/:id', detailBook)
-    .post('', authLogin, Auth.addBook, multerUploads, insertBook)
+    .post('', authLogin, addBook, multerUploads, insertBook)
     .patch('/confirm/:id', authLogin, verifyAdmin, setStatus)
     .patch('/:id', authLogin, verifyAdmin, multerUploads, updateBook)
     .delete('/:id',  authLogin, verifyAdmin, deleteBook)

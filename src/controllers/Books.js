@@ -1,5 +1,5 @@
 const modelBooks = require('../models/mdbooks')
-const multer = require('../middleware/multer')
+const multer = require('../middleware/Multer')
 const cloudinary = require('../config/cloudinaryConfig')
 
 module.exports = {
